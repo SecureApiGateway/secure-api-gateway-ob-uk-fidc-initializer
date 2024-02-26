@@ -7,8 +7,8 @@ require (
 	github.com/go-resty/resty/v2 v2.4.0
 	github.com/pact-foundation/pact-go v1.5.2
 	github.com/spf13/viper v1.7.1
-	github.com/stretchr/testify v1.7.0
-	go.uber.org/zap v1.16.0
+	github.com/stretchr/testify v1.8.1
+	go.uber.org/zap v1.27.0
 )
 
 require (
