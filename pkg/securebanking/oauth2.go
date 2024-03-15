@@ -327,7 +327,18 @@ func UpdateOAuth2Provider(claimsScriptID string) {
 	zap.S().Info("UpdateOAuth2Provider() Creating OAuth2Provider service in the " + common.Config.Identity.AmRealm + " realm")
 
 	oauth2Provider := &types.OAuth2Provider{}
-	err := common.Unmarshal(common.Config.Environment.Paths.ConfigSecureBanking+"oauth2provider-update.json", &common.Config, oauth2Provider)
+	fileName := ""
+	if common.Config.Environment.SapigType == "core" {
+		zap.S().Info("UpdateOAuth2Provider() Using Core Config")
+		fileName = "oauth2provider-core-update.json"
+	} else if common.Config.Environment.SapigType == "ob" {
+		zap.S().Info("UpdateOAuth2Provider() Using OB Config")
+		fileName = "oauth2provider-update.json"
+	} else {
+		panic(fmt.Sprintf("Unrecognised SapigType %v", common.Config.Environment.SapigType))
+	}
+    zap.S().Infof("Shaun Test %+v", oauth2Provider)
+	err := common.Unmarshal(common.Config.Environment.Paths.ConfigSecureBanking+fileName, &common.Config, oauth2Provider)
 	if err != nil {
 		panic(err)
 	}

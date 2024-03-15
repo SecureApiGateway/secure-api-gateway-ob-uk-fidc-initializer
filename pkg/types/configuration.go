@@ -54,10 +54,11 @@ type ig struct {
 	IgAgentPassword string `mapstructure:"IG_AGENT_PASSWORD"`
 }
 type environment struct {
-	Verbose bool   `mapstructure:"VERBOSE"`
-	Strict  bool   `mapstructure:"STRICT"`
-	Type    string `mapstructure:"TYPE"`
-	Paths   paths  `mapstructure:"PATHS"`
+	Verbose   bool   `mapstructure:"VERBOSE"`
+	Strict    bool   `mapstructure:"STRICT"`
+	Type      string `mapstructure:"TYPE"`
+	Paths     paths  `mapstructure:"PATHS"`
+	SapigType string `mapstructure:"SAPIGTYPE"`
 }
 
 type paths struct {

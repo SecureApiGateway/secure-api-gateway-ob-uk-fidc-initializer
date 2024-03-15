@@ -1,0 +1,270 @@
+{
+  "coreOAuth2Config": {
+    "usePolicyEngineForScope": false,
+    "macaroonTokensEnabled": false,
+    "statelessTokensEnabled": true,
+    "codeLifetime": 120,
+    "issueRefreshTokenOnRefreshedToken": true,
+    "refreshTokenLifetime": 604800,
+    "accessTokenLifetime": 360000,
+    "issueRefreshToken": true
+  },
+  "advancedOAuth2Config": {
+    "tlsClientCertificateTrustedHeader": "{{.TLS.ClientCertHeaderName}}",
+    "tlsClientCertificateHeaderFormat": "URLENCODED_PEM",
+    "supportedSubjectTypes": [
+      "public",
+      "pairwise"
+    ],
+    "defaultScopes": [],
+    "macaroonTokenFormat": "V2",
+    "codeVerifierEnforced": "false",
+    "grantTypes": [
+      "implicit",
+      "urn:ietf:params:oauth:grant-type:saml2-bearer",
+      "refresh_token",
+      "password",
+      "client_credentials",
+      "urn:ietf:params:oauth:grant-type:device_code",
+      "authorization_code",
+      "urn:openid:params:grant-type:ciba",
+      "urn:ietf:params:oauth:grant-type:uma-ticket",
+      "urn:ietf:params:oauth:grant-type:jwt-bearer"
+    ],
+    "authenticationAttributes": [
+      "uid"
+    ],
+    "tokenSigningAlgorithm": "PS256",
+    "tokenEncryptionEnabled": false,
+    "hashSalt": "gnsdjcwx1a1acia62voroervtgq0",
+    "moduleMessageEnabledInPasswordGrant": false,
+    "tlsCertificateBoundAccessTokensEnabled": true,
+    "nbfClaimRequiredInRequestObject": true,
+    "maxDifferenceBetweenRequestObjectNbfAndExp": 60,
+    "displayNameAttribute": "cn",
+    "supportedScopes": [
+      "openid",
+      "payments",
+      "accounts",
+      "eventpolling",
+      "fundsconfirmations"
+    ],
+    "responseTypeClasses": [
+      "code|org.forgerock.oauth2.core.AuthorizationCodeResponseTypeHandler",
+      "id_token|org.forgerock.openidconnect.IdTokenResponseTypeHandler"
+    ],
+    "expClaimRequiredInRequestObject": true,
+    "tokenCompressionEnabled": false,
+    "allowedAudienceValues": [
+      "https://{{.Hosts.IgFQDN}}/am/oauth2/realms/root/realms/{{.Identity.AmRealm}}/access_token",
+      "https://{{.Hosts.MtlsFQDN}}/am/oauth2/realms/root/realms/{{.Identity.AmRealm}}/access_token"
+    ],
+    "tlsCertificateRevocationCheckingEnabled": false
+  },
+  "coreOIDCConfig": {
+    "supportedClaims": [
+      "acr"
+    ],
+    "jwtTokenLifetime": 3600,
+    "supportedIDTokenEncryptionAlgorithms": [
+      "ECDH-ES+A256KW",
+      "ECDH-ES+A192KW",
+      "RSA-OAEP",
+      "ECDH-ES+A128KW",
+      "RSA-OAEP-256",
+      "A128KW",
+      "A256KW",
+      "ECDH-ES",
+      "dir",
+      "A192KW"
+    ],
+    "supportedIDTokenEncryptionMethods": [
+      "A256GCM",
+      "A192GCM",
+      "A128GCM",
+      "A128CBC-HS256",
+      "A192CBC-HS384",
+      "A256CBC-HS512"
+    ],
+    "supportedIDTokenSigningAlgorithms": [
+      "PS256"
+    ]
+  },
+  "advancedOIDCConfig": {
+    "supportedTokenIntrospectionResponseSigningAlgorithms": [
+      "PS256"
+    ],
+    "supportedRequestParameterSigningAlgorithms": [
+      "PS256"
+    ],
+    "idTokenInfoClientAuthenticationEnabled": true,
+    "alwaysAddClaimsToToken": true,
+    "loaMapping": {
+      "urn:mace:incommon:iap:silver": "PSD2CustomerAuthentication"
+    },
+    "supportedTokenEndpointAuthenticationSigningAlgorithms": [
+      "PS256"
+    ],
+    "supportedRequestParameterEncryptionAlgorithms": [
+      "ECDH-ES+A256KW",
+      "ECDH-ES+A192KW",
+      "ECDH-ES+A128KW",
+      "RSA-OAEP",
+      "RSA-OAEP-256",
+      "A128KW",
+      "A256KW",
+      "ECDH-ES",
+      "dir",
+      "A192KW"
+    ],
+    "authorisedOpenIdConnectSSOClients": [],
+    "storeOpsTokens": true,
+    "supportedRequestParameterEncryptionEnc": [
+      "A256GCM",
+      "A192GCM",
+      "A128GCM",
+      "A128CBC-HS256",
+      "A192CBC-HS384",
+      "A256CBC-HS512"
+    ],
+    "defaultACR": [],
+    "amrMappings": {},
+    "claimsParameterSupported": true,
+    "supportedUserInfoEncryptionAlgorithms": [
+      "ECDH-ES+A256KW",
+      "ECDH-ES+A192KW",
+      "RSA-OAEP",
+      "ECDH-ES+A128KW",
+      "RSA-OAEP-256",
+      "A128KW",
+      "A256KW",
+      "ECDH-ES",
+      "dir",
+      "A192KW"
+    ],
+    "supportedUserInfoEncryptionEnc": [
+      "A256GCM",
+      "A192GCM",
+      "A128GCM",
+      "A128CBC-HS256",
+      "A192CBC-HS384",
+      "A256CBC-HS512"
+    ],
+    "supportedUserInfoSigningAlgorithms": [
+      "PS256"
+    ],
+    "supportedAuthorizationResponseSigningAlgorithms": [
+      "PS256"
+    ],
+    "supportedTokenIntrospectionResponseEncryptionEnc": [
+      "A256GCM",
+      "A192GCM",
+      "A128GCM",
+      "A128CBC-HS256",
+      "A192CBC-HS384",
+      "A256CBC-HS512"
+    ],
+    "supportedTokenIntrospectionResponseEncryptionAlgorithms": [
+      "ECDH-ES+A256KW",
+      "ECDH-ES+A192KW",
+      "RSA-OAEP",
+      "ECDH-ES+A128KW",
+      "RSA-OAEP-256",
+      "A128KW",
+      "A256KW",
+      "ECDH-ES",
+      "dir",
+      "A192KW"
+    ],
+    "authorisedIdmDelegationClients": []
+  },
+  "clientDynamicRegistrationConfig": {
+    "dynamicClientRegistrationSoftwareStatementRequired": true,
+    "generateRegistrationAccessTokens": true,
+    "requiredSoftwareStatementAttestedAttributes": [],
+    "dynamicClientRegistrationScope": "dynamic_client_registration",
+    "allowDynamicRegistration": false
+  },
+  "cibaConfig": {
+    "supportedCibaSigningAlgorithms": [
+      "PS256"
+    ],
+    "cibaAuthReqIdLifetime": 600,
+    "cibaMinimumPollingInterval": 2
+  },
+  "consent": {
+    "clientsCanSkipConsent": false,
+    "supportedRcsRequestSigningAlgorithms": [
+      "PS256"
+    ],
+    "supportedRcsRequestEncryptionMethods": [
+      "A256GCM",
+      "A192GCM",
+      "A128GCM",
+      "A128CBC-HS256",
+      "A192CBC-HS384",
+      "A256CBC-HS512"
+    ],
+    "supportedRcsRequestEncryptionAlgorithms": [
+      "ECDH-ES+A256KW",
+      "ECDH-ES+A192KW",
+      "RSA-OAEP",
+      "ECDH-ES+A128KW",
+      "RSA-OAEP-256",
+      "A128KW",
+      "A256KW",
+      "ECDH-ES",
+      "dir",
+      "A192KW"
+    ],
+    "supportedRcsResponseSigningAlgorithms": [
+      "PS256"
+    ],
+    "enableRemoteConsent": false,
+    "supportedRcsResponseEncryptionAlgorithms": [
+      "ECDH-ES+A256KW",
+      "ECDH-ES+A192KW",
+      "ECDH-ES+A128KW",
+      "RSA-OAEP",
+      "RSA-OAEP-256",
+      "A128KW",
+      "A256KW",
+      "ECDH-ES",
+      "dir",
+      "A192KW"
+    ],
+    "supportedRcsResponseEncryptionMethods": [
+      "A256GCM",
+      "A192GCM",
+      "A128GCM",
+      "A128CBC-HS256",
+      "A192CBC-HS384",
+      "A256CBC-HS512"
+    ]
+  },
+  "deviceCodeConfig": {
+    "devicePollInterval": 5,
+    "deviceCodeLifetime": 300
+  },
+  "pluginsConfig" : {
+    "accessTokenModificationScript": "d22f9a0c-426a-4466-b95e-d0f125b0d5fa",
+    "accessTokenEnricherClass": "org.forgerock.openam.oauth2.OpenAMScopeValidator",
+    "accessTokenModificationPluginType": "SCRIPTED",
+    "accessTokenModifierClass": "org.forgerock.openam.oauth2.OpenAMScopeValidator",
+    "authorizeEndpointDataProviderClass": "org.forgerock.openam.oauth2.OpenAMScopeValidator",
+    "authorizeEndpointDataProviderPluginType": "JAVA",
+    "oidcClaimsScript" : "",
+    "oidcClaimsClass": "org.forgerock.openam.oauth2.OpenAMScopeValidator",
+    "oidcClaimsPluginType": "SCRIPTED",
+    "evaluateScopeClass": "org.forgerock.openam.oauth2.OpenAMScopeValidator",
+    "evaluateScopePluginType": "JAVA",
+    "validateScopeClass": "org.forgerock.openam.oauth2.OpenAMScopeValidator",
+    "validateScopePluginType": "JAVA"
+  },
+  "_id": "",
+  "_type": {
+    "_id": "oauth-oidc",
+    "name": "OAuth2 Provider",
+    "collection": false
+  }
+}
