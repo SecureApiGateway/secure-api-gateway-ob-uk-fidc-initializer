@@ -374,6 +374,7 @@ func UpdateCoreOAuth2Provider(claimsScriptID string) {
 
 	zap.S().Infow("UpdateOAuth2Provider() OAuth2 provider", "statusCode", s)
 }
+
 func oauth2ProviderExists(id string) bool {
 	path := "/am/json/realms/root/realms/" + common.Config.Identity.AmRealm + "/realm-config/services?_queryFilter=true"
 	r := &types.AmResult{}

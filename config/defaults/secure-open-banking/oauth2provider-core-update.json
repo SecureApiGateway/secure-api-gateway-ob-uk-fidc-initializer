@@ -193,56 +193,6 @@
     "cibaAuthReqIdLifetime": 600,
     "cibaMinimumPollingInterval": 2
   },
-  "consent": {
-    "clientsCanSkipConsent": false,
-    "supportedRcsRequestSigningAlgorithms": [
-      "PS256"
-    ],
-    "supportedRcsRequestEncryptionMethods": [
-      "A256GCM",
-      "A192GCM",
-      "A128GCM",
-      "A128CBC-HS256",
-      "A192CBC-HS384",
-      "A256CBC-HS512"
-    ],
-    "supportedRcsRequestEncryptionAlgorithms": [
-      "ECDH-ES+A256KW",
-      "ECDH-ES+A192KW",
-      "RSA-OAEP",
-      "ECDH-ES+A128KW",
-      "RSA-OAEP-256",
-      "A128KW",
-      "A256KW",
-      "ECDH-ES",
-      "dir",
-      "A192KW"
-    ],
-    "supportedRcsResponseSigningAlgorithms": [
-      "PS256"
-    ],
-    "enableRemoteConsent": false,
-    "supportedRcsResponseEncryptionAlgorithms": [
-      "ECDH-ES+A256KW",
-      "ECDH-ES+A192KW",
-      "ECDH-ES+A128KW",
-      "RSA-OAEP",
-      "RSA-OAEP-256",
-      "A128KW",
-      "A256KW",
-      "ECDH-ES",
-      "dir",
-      "A192KW"
-    ],
-    "supportedRcsResponseEncryptionMethods": [
-      "A256GCM",
-      "A192GCM",
-      "A128GCM",
-      "A128CBC-HS256",
-      "A192CBC-HS384",
-      "A256CBC-HS512"
-    ]
-  },
   "deviceCodeConfig": {
     "devicePollInterval": 5,
     "deviceCodeLifetime": 300
