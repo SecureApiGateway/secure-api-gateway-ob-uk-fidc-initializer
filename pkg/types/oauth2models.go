@@ -224,7 +224,6 @@ type CoreOAuth2Provider struct {
 	AdvancedOIDCConfig              CoreAdvancedOIDCConfig          `json:"advancedOIDCConfig"`
 	ClientDynamicRegistrationConfig ClientDynamicRegistrationConfig `json:"clientDynamicRegistrationConfig"`
 	CibaConfig                      CibaConfig                      `json:"cibaConfig"`
-	Consent                         Consent                         `json:"consent"`
 	DeviceCodeConfig                DeviceCodeConfig                `json:"deviceCodeConfig"`
 	PluginsConfig                   PluginsConfig                   `json:"pluginsConfig"`
 	ID                              string                          `json:"_id"`
