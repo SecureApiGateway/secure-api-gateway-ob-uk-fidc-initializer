@@ -4,7 +4,7 @@ go 1.23
 
 require (
 	github.com/go-jose/go-jose/v3 v3.0.3
-	github.com/go-resty/resty/v2 v2.15.2
+	github.com/go-resty/resty/v2 v2.16.2
 	github.com/pact-foundation/pact-go v1.5.2
 	github.com/spf13/viper v1.19.0
 	github.com/stretchr/testify v1.9.0
