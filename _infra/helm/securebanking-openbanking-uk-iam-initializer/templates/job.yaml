@@ -145,7 +145,7 @@ spec:
                 secretKeyRef:
                   name: rcs-signing
                   key: rcs-signing.pem
-            {{ else }}
+            {{- else }}
             - name: ENVIRONMENT.STRICT
               value: {{ .Values.job.environment.strict | quote }}
             - name: ENVIRONMENT.SAPIGTYPE
