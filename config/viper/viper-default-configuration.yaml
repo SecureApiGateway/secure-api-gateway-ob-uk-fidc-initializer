@@ -24,8 +24,9 @@ HOSTS:
   BASE_FQDN: dev.forgerock.financial
   WILDCARD_FQDN: "*.forgerock.financial" # If set allows resources in AISP/PISP access to RC/RCS in all subdomains
   IDENTITY_PLATFORM_FQDN: iam.dev.forgerock.financial # Identity platform Host name
-  IG_FQDN: sapig.dev.forgerock.financial
-  MTLS_FQDN: mtls.sapig.dev.forgerock.financial
+  AS_FQDN: as-sapig.dev.forgerock.financial
+  RS_FQDN: rs-sapig.dev.forgerock.financial
+  AS_MTLS_FQDN: mtls.sapig.dev.forgerock.financial
   TRUSTED_DIR_FQDN: test-trusted-directory.dev.forgerock.financial
   RCS_UI_FQDN: rcs-ui.dev.forgerock.financial # RCS user interface app host name (Consent user app)
   SCHEME: https # URI scheme, Syntax part of a generic URI

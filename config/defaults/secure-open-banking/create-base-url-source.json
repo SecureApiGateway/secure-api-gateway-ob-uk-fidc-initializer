@@ -1,7 +1,7 @@
 {
     "extensionClassName": "",
     "source": "FIXED_VALUE",
-    "fixedValue": "https://{{.Hosts.IgFQDN}}",
+    "fixedValue": "https://{{.Hosts.ASFQDN}}",
     "contextPath": "/am",
     "_id": "",
     "_type": {
