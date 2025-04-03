@@ -1,7 +1,7 @@
 {
   "validGotoDestinations": [
     "https://{{.Hosts.IdentityPlatformFQDN}}/*?*",
-    "https://{{.Hosts.IgFQDN}}/am/*?*"
+    "https://{{.Hosts.ASFQDN}}/am/*?*"
   ],
   "_type": {
     "_id": "validation",
