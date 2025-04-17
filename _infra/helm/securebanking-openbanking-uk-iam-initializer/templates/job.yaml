@@ -16,136 +16,6 @@ spec:
           image: "{{ .Values.job.image.repo }}:{{ default .Chart.AppVersion .Values.job.image.tag }}"
           imagePullPolicy: {{ .Values.job.image.imagePullPolicy }}
           env:
-            {{- if eq .Values.job.environment.sapigType "ob" }}
-            - name: ENVIRONMENT.STRICT
-              value: {{ .Values.job.environment.strict | quote }}
-            - name: ENVIRONMENT.SAPIGTYPE
-              valueFrom:
-                configMapKeyRef:
-                  name: ob-deployment-config
-                  key: SAPIG_TYPE
-            - name: ENVIRONMENT.CLOUDTYPE
-              valueFrom:
-                configMapKeyRef:
-                  name: ob-deployment-config
-                  key: CLOUD_TYPE
-            - name: IDENTITY_PLATFORM_FQDN # variable to run the command shell, the shell doesn't support variables with dot.
-              valueFrom:
-                configMapKeyRef:
-                  name: ob-deployment-config
-                  key: IDENTITY_PLATFORM_FQDN
-            - name: HOSTS.BASE_FQDN
-              valueFrom:
-                configMapKeyRef:
-                  name: ob-deployment-config
-                  key: BASE_FQDN
-            - name: HOSTS.AS_FQDN
-              valueFrom:
-                configMapKeyRef:
-                  name: ob-deployment-config
-                  key: IG_FQDN
-            - name: HOSTS.RS_FQDN
-              valueFrom:
-                configMapKeyRef:
-                  name: ob-deployment-config
-                  key: IG_FQDN
-            - name: HOSTS.AS_MTLS_FQDN
-              valueFrom:
-                configMapKeyRef:
-                  name: ob-deployment-config
-                  key: MTLS_FQDN
-            - name: HOSTS.IDENTITY_PLATFORM_FQDN
-              valueFrom:
-                configMapKeyRef:
-                  name: ob-deployment-config
-                  key: IDENTITY_PLATFORM_FQDN
-            - name: IDENTITY.DEFAULT_USER_AUTHENTICATION_SERVICE
-              valueFrom:
-                configMapKeyRef:
-                  name: ob-deployment-config
-                  key: IDENTITY_DEFAULT_USER_AUTHENTICATION_SERVICE
-                  optional: true
-            - name: IDENTITY.GOOGLE_SECRET_STORE_NAME
-              valueFrom:
-                configMapKeyRef:
-                  name: ob-deployment-config
-                  key: IDENTITY_GOOGLE_SECRET_STORE_NAME
-                  optional: true
-            - name: HOSTS.TRUSTED_DIR_FQDN # variable to run the command shell, the shell doesn't support variables with dot.
-              valueFrom:
-                configMapKeyRef:
-                  name: ob-deployment-config
-                  key: TEST_DIRECTORY_FQDN
-            - name: IDENTITY.GOOGLE_SECRET_STORE_PROJECT
-              valueFrom:
-                configMapKeyRef:
-                  name: ob-deployment-config
-                  key: IDENTITY_GOOGLE_SECRET_STORE_PROJECT
-                  optional: true
-            - name: IDENTITY.GOOGLE_SECRET_STORE_OAUTH2_CA_CERTS_SECRET_NAME
-              valueFrom:
-                configMapKeyRef:
-                  name: ob-deployment-config
-                  key: IDENTITY_GOOGLE_SECRET_STORE_OAUTH2_CA_CERTS_SECRET_NAME
-                  optional: true
-            - name: IG.IG_CLIENT_ID
-              valueFrom:
-                secretKeyRef:
-                  name: ob-secrets
-                  key: IG_CLIENT_ID
-            - name: IG.IG_CLIENT_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: ob-secrets
-                  key: IG_CLIENT_SECRET
-            - name: IG.IG_IDM_USER
-              valueFrom:
-                secretKeyRef:
-                  name: ob-secrets
-                  key: IG_IDM_USER
-            - name: IG.IG_IDM_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: ob-secrets
-                  key: IG_IDM_PASSWORD
-            - name: IG.IG_AGENT_ID
-              valueFrom:
-                secretKeyRef:
-                  name: ob-secrets
-                  key: IG_AGENT_ID
-            - name: IG.IG_AGENT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: ob-secrets
-                  key: IG_AGENT_PASSWORD
-            - name: IDENTITY.REMOTE_CONSENT_SIGNING_KEY_ID
-              valueFrom:
-                configMapKeyRef:
-                  name: ob-deployment-config
-                  key: RCS_CONSENT_RESPONSE_JWT_SIGNINGKEYID
-            - name: IDENTITY.REMOTE_CONSENT_ID
-              valueFrom:
-                configMapKeyRef:
-                  name: ob-deployment-config
-                  key: RCS_CONSENT_RESPONSE_JWT_ISSUER
-            - name: OB.ORGANISATION_ID
-              valueFrom:
-                configMapKeyRef:
-                  name: ob-deployment-config
-                  key: OB_ASPSP_ORG_ID
-                  optional: false
-            - name: OB.SOFTWARE_ID
-              valueFrom:
-                configMapKeyRef:
-                  name: ob-deployment-config
-                  key: OB_ASPSP_SOFTWARE_ID
-                  optional: false
-            - name: IDENTITY.REMOTE_CONSENT_SIGNING_PUBLIC_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: rcs-signing
-                  key: rcs-signing.pem
-            {{- else }}
             - name: ENVIRONMENT.STRICT
               value: {{ .Values.job.environment.strict | quote }}
             - name: ENVIRONMENT.SAPIGTYPE
@@ -173,31 +43,30 @@ spec:
                 configMapKeyRef:
                   name: as-sapig-deployment-config
                   key: AS_FQDN
-            - name: HOSTS.RS_FQDN
-              valueFrom:
-                configMapKeyRef:
-                  name: rs-sapig-deployment-config
-                  key: RS_FQDN
             - name: HOSTS.AS_MTLS_FQDN
               valueFrom:
                 configMapKeyRef:
                   name: as-sapig-deployment-config
                   key: AS_MTLS_FQDN
+            - name: HOSTS.RS_FQDN
+              valueFrom:
+                configMapKeyRef:
+                  name: rs-sapig-deployment-config
+                  key: RS_FQDN
+            - name: HOSTS.RS_MTLS_FQDN
+              valueFrom:
+                configMapKeyRef:
+                  name: rs-sapig-deployment-config
+                  key: RS_MTLS_FQDN
             - name: HOSTS.IDENTITY_PLATFORM_FQDN
               valueFrom:
                 configMapKeyRef:
                   name: as-sapig-deployment-config
                   key: IDENTITY_PLATFORM_FQDN
-            - name: IDENTITY.DEFAULT_USER_AUTHENTICATION_SERVICE
-              valueFrom:
-                configMapKeyRef:
-                  name: as-sapig-deployment-config
-                  key: IDENTITY_DEFAULT_USER_AUTHENTICATION_SERVICE
-                  optional: true
             - name: IDENTITY.GOOGLE_SECRET_STORE_NAME
               valueFrom:
                 configMapKeyRef:
-                  name: as-sapig-deployment-config
+                  name: as-sapig-aic-deployment-config
                   key: IDENTITY_GOOGLE_SECRET_STORE_NAME
                   optional: true
             - name: HOSTS.TRUSTED_DIR_FQDN # variable to run the command shell, the shell doesn't support variables with dot.
@@ -205,18 +74,71 @@ spec:
                 configMapKeyRef:
                   name: as-sapig-deployment-config
                   key: TEST_DIRECTORY_FQDN
-            - name: IDENTITY.GOOGLE_SECRET_STORE_PROJECT
+            {{- if eq .Values.job.environment.cloudType "FIDC" }}
+            - name: USERS.FR_PLATFORM_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: initializer-secret
+                  key: cdm-admin-password
+            - name: USERS.FR_PLATFORM_ADMIN_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: initializer-secret
+                  key: cdm-admin-user
+            - name: IDENTITY.DEFAULT_USER_AUTHENTICATION_SERVICE
               valueFrom:
                 configMapKeyRef:
                   name: as-sapig-deployment-config
+                  key: IDENTITY_DEFAULT_USER_AUTHENTICATION_SERVICE
+                  optional: true
+            - name: IDENTITY.GOOGLE_SECRET_STORE_PROJECT
+              valueFrom:
+                configMapKeyRef:
+                  name: as-sapig-aic-deployment-config
                   key: IDENTITY_GOOGLE_SECRET_STORE_PROJECT
                   optional: true
             - name: IDENTITY.GOOGLE_SECRET_STORE_OAUTH2_CA_CERTS_SECRET_NAME
               valueFrom:
                 configMapKeyRef:
-                  name: as-sapig-deployment-config
+                  name: as-sapig-aic-deployment-config
                   key: IDENTITY_GOOGLE_SECRET_STORE_OAUTH2_CA_CERTS_SECRET_NAME
                   optional: true
+            {{- else }}
+            - name: USERS.FR_PLATFORM_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: am-env-secrets
+                  key: AM_PASSWORDS_AMADMIN_CLEAR
+            {{ end }}
+            {{- if eq .Values.job.environment.sapigType "ob" }}
+            - name: IDENTITY.REMOTE_CONSENT_SIGNING_PUBLIC_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: rcs-signing
+                  key: rcs-signing.pem
+            - name: IDENTITY.REMOTE_CONSENT_SIGNING_KEY_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: rs-sapig-deployment-config
+                  key: RCS_CONSENT_RESPONSE_JWT_SIGNINGKEYID
+            - name: IDENTITY.REMOTE_CONSENT_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: rs-sapig-deployment-config
+                  key: RCS_CONSENT_RESPONSE_JWT_ISSUER
+            - name: OB.ORGANISATION_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: rs-sapig-deployment-config
+                  key: OB_ASPSP_ORG_ID
+                  optional: false
+            - name: OB.SOFTWARE_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: rs-sapig-deployment-config
+                  key: OB_ASPSP_SOFTWARE_ID
+                  optional: false
+            {{ end }}
             - name: IG.IG_CLIENT_ID
               valueFrom:
                 secretKeyRef:
@@ -247,25 +169,6 @@ spec:
                 secretKeyRef:
                   name: as-sapig-secrets
                   key: IG_AGENT_PASSWORD
-          {{ end }}
-          {{- if eq .Values.job.environment.cloudType "FIDC" }}
-            - name: USERS.FR_PLATFORM_ADMIN_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: initializer-secret
-                  key: cdm-admin-password
-            - name: USERS.FR_PLATFORM_ADMIN_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: initializer-secret
-                  key: cdm-admin-user
-          {{- else }}
-            - name: USERS.FR_PLATFORM_ADMIN_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: am-env-secrets
-                  key: AM_PASSWORDS_AMADMIN_CLEAR
-          {{ end }}
           command: [ "/bin/sh", "-c" ]
           args:
             - |
