@@ -63,12 +63,6 @@ spec:
                 configMapKeyRef:
                   name: as-sapig-deployment-config
                   key: IDENTITY_PLATFORM_FQDN
-            - name: IDENTITY.DEFAULT_USER_AUTHENTICATION_SERVICE
-              valueFrom:
-                configMapKeyRef:
-                  name: as-sapig-aic-deployment-config
-                  key: IDENTITY_DEFAULT_USER_AUTHENTICATION_SERVICE
-                  optional: true
             - name: IDENTITY.GOOGLE_SECRET_STORE_NAME
               valueFrom:
                 configMapKeyRef:
@@ -103,6 +97,12 @@ spec:
                 secretKeyRef:
                   name: initializer-secret
                   key: cdm-admin-user
+            - name: IDENTITY.DEFAULT_USER_AUTHENTICATION_SERVICE
+              valueFrom:
+                configMapKeyRef:
+                  name: as-sapig-deployment-config
+                  key: IDENTITY_DEFAULT_USER_AUTHENTICATION_SERVICE
+                  optional: true
             {{- else }}
             - name: USERS.FR_PLATFORM_ADMIN_PASSWORD
               valueFrom:
