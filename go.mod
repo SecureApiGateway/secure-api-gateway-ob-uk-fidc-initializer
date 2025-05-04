@@ -5,7 +5,7 @@ go 1.23
 require (
 	github.com/go-jose/go-jose/v3 v3.0.3
 	github.com/go-resty/resty/v2 v2.15.2
-	github.com/pact-foundation/pact-go v1.5.2
+	github.com/pact-foundation/pact-go v1.10.0
 	github.com/spf13/viper v1.19.0
 	github.com/stretchr/testify v1.9.0
 	go.uber.org/zap v1.27.0
@@ -16,9 +16,9 @@ require github.com/dgrijalva/jwt-go v3.2.0+incompatible
 require (
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
-	github.com/hashicorp/go-version v1.0.0 // indirect
+	github.com/hashicorp/go-version v1.5.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
-	github.com/hashicorp/logutils v0.0.0-20150609070431-0dc08b1671f3 // indirect
+	github.com/hashicorp/logutils v1.0.0 // indirect
 	github.com/magiconair/properties v1.8.7 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.2 // indirect
