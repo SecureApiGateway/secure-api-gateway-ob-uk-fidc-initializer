@@ -74,6 +74,11 @@ spec:
                 configMapKeyRef:
                   name: as-sapig-deployment-config
                   key: TEST_DIRECTORY_FQDN
+            - name: IDENTITY.AM_REALM
+              valueFrom:
+                configMapKeyRef:
+                  name: as-sapig-deployment-config
+                  key: AM_REALM
             {{- if eq .Values.job.environment.cloudType "FIDC" }}
             - name: USERS.FR_PLATFORM_ADMIN_PASSWORD
               valueFrom:
