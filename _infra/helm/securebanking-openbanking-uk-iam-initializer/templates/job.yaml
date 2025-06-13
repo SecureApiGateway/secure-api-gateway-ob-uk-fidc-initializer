@@ -63,12 +63,6 @@ spec:
                 configMapKeyRef:
                   name: as-sapig-deployment-config
                   key: IDENTITY_PLATFORM_FQDN
-            - name: IDENTITY.GOOGLE_SECRET_STORE_NAME
-              valueFrom:
-                configMapKeyRef:
-                  name: as-sapig-aic-deployment-config
-                  key: IDENTITY_GOOGLE_SECRET_STORE_NAME
-                  optional: true
             - name: HOSTS.TRUSTED_DIR_FQDN # variable to run the command shell, the shell doesn't support variables with dot.
               valueFrom:
                 configMapKeyRef:
@@ -79,6 +73,12 @@ spec:
                 configMapKeyRef:
                   name: as-sapig-deployment-config
                   key: AM_REALM
+            - name: IDENTITY.GOOGLE_SECRET_STORE_PROJECT
+              valueFrom:
+                configMapKeyRef:
+                  name: as-sapig-deployment-config
+                  key: IDENTITY_GOOGLE_SECRET_STORE_PROJECT
+                  optional: true
             {{- if eq .Values.job.environment.cloudType "FIDC" }}
             - name: USERS.FR_PLATFORM_ADMIN_PASSWORD
               valueFrom:
@@ -96,11 +96,11 @@ spec:
                   name: as-sapig-deployment-config
                   key: IDENTITY_DEFAULT_USER_AUTHENTICATION_SERVICE
                   optional: true
-            - name: IDENTITY.GOOGLE_SECRET_STORE_PROJECT
+            - name: IDENTITY.GOOGLE_SECRET_STORE_NAME
               valueFrom:
                 configMapKeyRef:
                   name: as-sapig-aic-deployment-config
-                  key: IDENTITY_GOOGLE_SECRET_STORE_PROJECT
+                  key: IDENTITY_GOOGLE_SECRET_STORE_NAME
                   optional: true
             - name: IDENTITY.GOOGLE_SECRET_STORE_OAUTH2_CA_CERTS_SECRET_NAME
               valueFrom:
