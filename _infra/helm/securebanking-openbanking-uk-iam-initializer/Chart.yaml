@@ -2,5 +2,5 @@ apiVersion: v2
 name: fidc-configurator
 description: The helm chart to deploy the job that configures the Identity platform
 type: application
-version: 4.0.0
-appVersion: 4.0.0
+version: 5.0.0
+appVersion: 5.0.0
