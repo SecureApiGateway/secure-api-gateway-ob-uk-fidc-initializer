@@ -36,8 +36,8 @@ IG: # Root key for parameter values related with IG platform component service c
   IG_CLIENT_SECRET: password # The OAuth2 client secret to be used by IG to authenticate to the FR Platform
   IG_RCS_SECRET: password # IG rcs secret for remote consent service
   IG_SSA_SECRET: password # IG ssa secret for software publisher agent
-  IG_IDM_USER: service_account.ig # IG service user account
-  IG_IDM_PASSWORD: 0penBanking! # IG service user account password
+  IG_AS_IDM_CLIENT_SECRET: 0penBanking!
+  IG_RS_IDM_CLIENT_SECRET: 0penBanking!
   IG_AGENT_ID: ig-agent # IG agent id for IG policy agent
   IG_AGENT_PASSWORD: password # Ig agent password for IG policy agent
 IDENTITY: # Root key for parameter values related with identity platform configuration

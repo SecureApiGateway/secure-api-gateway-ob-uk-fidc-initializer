@@ -122,16 +122,14 @@ func main() {
 
 	time.Sleep(5 * time.Second)
 
-	platform.CreateIGServiceUser()
-	platform.CreateIGOAuth2Client()
+	platform.CreateIGCoreOAuth2Client()
+	platform.CreateIGAsOAuth2Client()
+	platform.CreateIGRsOAuth2Client()
 	platform.CreateIGPolicyAgent()
 
 	platform.ApplySystemClients(session.Cookie)
 
 	time.Sleep(5 * time.Second)
-
-	fmt.Println("Attempt to Add IAM Managed Objects...")
-	securebanking.AddIamManagedObjects()
 
 	securebanking.CreateApiJwksEndpoint()
 }

@@ -12,56 +12,34 @@ import (
 	"go.uber.org/zap"
 )
 
-func CreateIGServiceUser() {
-	if httprest.ServiceIdentityExists(common.Config.Ig.IgIdmUser) {
-		zap.L().Info("Skipping creation of IG service user")
-		return
-	}
-
-	zap.L().Info("Creating IG service user")
-
-	user := &types.ServiceUser{
-		UserName:  common.Config.Ig.IgIdmUser,
-		SN:        "Service Account",
-		GivenName: "IG",
-		Mail:      "ig@acme.com",
-		Password:  common.Config.Ig.IgIdmPassword,
-		AuthzRole: []types.AuthzRole{
-			{
-				Ref: "internal/role/openidm-admin",
-			},
-		},
-	}
-	path := "/openidm/managed/user/?_action=create"
-	//FIDC IDM default user managed objects use a different naming pattern <realm>_user Eg:alpha_user
-	if common.Config.Environment.CloudType == "FIDC" {
-		path = "/openidm/managed/" + common.Config.Identity.AmRealm + "_user/?_action=create"
-	}
-	_, s := httprest.Client.Post(path, user, map[string]string{
-		"Accept":       "*/*",
-		"Content-Type": "application/json",
-		"Connection":   "keep-alive",
-	})
-
-	zap.S().Infow("IG Service User", "statusCode", s)
+// CreateIGOAuth2Client -
+func CreateIGCoreOAuth2Client() {
+	createIGOAuth2Client(common.Config.Ig.IgClientId, "ig-oauth2-client.json")
 }
 
-// CreateIGOAuth2Client -
-func CreateIGOAuth2Client() {
-	if httprest.OAuth2AgentClientsExist(common.Config.Ig.IgClientId) {
-		zap.S().Infof("Skipping creation of IG Oauth2 client. OAuth2 client %s already exists", common.Config.Ig.IgClientId)
+func CreateIGAsOAuth2Client() {
+	createIGOAuth2Client("fapi-as-ig-client", "fapi-as-ig-oauth2-client.json")
+}
+
+func CreateIGRsOAuth2Client() {
+	createIGOAuth2Client("fapi-rs-ig-client", "fapi-rs-ig-oauth2-client.json")
+}
+
+func createIGOAuth2Client(clientId string, oauth2ConfigFile string) {
+	if httprest.OAuth2AgentClientsExist(clientId) {
+		zap.S().Infof("Skipping creation of IG Oauth2 client. OAuth2 client %s already exists", clientId)
 		return
 	}
 
-	zap.S().Infof("Creating IG OAuth2 client with id %s", common.Config.Ig.IgClientId)
+	zap.S().Infof("Creating IG OAuth2 client with id %s", clientId)
 	oauth2Client := &types.OAuth2Client{}
 
-	err := common.Unmarshal(common.Config.Environment.Paths.ConfigIdentityPlatform+"ig-oauth2-client.json", &common.Config, oauth2Client)
+	err := common.Unmarshal(common.Config.Environment.Paths.ConfigIdentityPlatform+oauth2ConfigFile, &common.Config, oauth2Client)
 	if err != nil {
 		panic(err)
 	}
 
-	path := fmt.Sprintf("/am/json/"+common.Config.Identity.AmRealm+"/realm-config/agents/OAuth2Client/%s", common.Config.Ig.IgClientId)
+	path := fmt.Sprintf("/am/json/"+common.Config.Identity.AmRealm+"/realm-config/agents/OAuth2Client/%s", clientId)
 	s := httprest.Client.Put(path, oauth2Client, map[string]string{
 		"Accept":           "application/json",
 		"Content-Type":     "application/json",

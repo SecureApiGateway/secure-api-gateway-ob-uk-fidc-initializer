@@ -172,14 +172,14 @@ There are a variables used before load the configuration file and these variable
 
 | Environment variable   | default               | description                                                                                                                                                                                                                                            |
 |------------------------|-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `IG.IG_CLIENT_ID`      | ig-client             | The initializer creates an OAuth2 Client that the SBAT IG will use to authenticate to the FR Platform to ensure that Api Client's can't bypass IG and use the FR Identity Platform APIs directly. The OAuth2 client will be created with this id       |
-| `IG.IG_CLIENT_SECRET`  | add-here-the-password | The initializer creates an OAuth2 Client that the SBAT IG will use to authenticate to the FR Platform to ensure that Api Client's can't bypass IG and use the FR Identity Platform APIs directly. The OAuth2 client will be created with this password |
-| `IG.IG_RCS_SECRET`     | add-here-the-secret   | IG rcs secret for remote consent service                                                                                                                                                                                                               |
-| `IG.IG_SSA_SECRET`     | add-here-the-secret   | IG ssa secret for software publisher agent                                                                                                                                                                                                             |
-| `IG.IG_IDM_USER`       | service_account.ig    | IG service user account                                                                                                                                                                                                                                |
-| `IG.IG_IDM_PASSWORD`   | add-here-the-password | IG service user account password                                                                                                                                                                                                                       |
-| `IG.IG_AGENT_ID`       | ig-agent              | IG agent id for IG policy agent                                                                                                                                                                                                                        |
-| `IG.IG_AGENT_PASSWORD` | add-here-the-password | Ig agent password for IG policy agent                                                                                                                                                                                                                  |
+| `IG.IG_CLIENT_ID`            | ig-client             | The initializer creates an OAuth2 Client that the SBAT IG will use to authenticate to the FR Platform to ensure that Api Client's can't bypass IG and use the FR Identity Platform APIs directly. The OAuth2 client will be created with this id       |
+| `IG.IG_CLIENT_SECRET`        | add-here-the-password | The initializer creates an OAuth2 Client that the SBAT IG will use to authenticate to the FR Platform to ensure that Api Client's can't bypass IG and use the FR Identity Platform APIs directly. The OAuth2 client will be created with this password |
+| `IG.IG_RCS_SECRET`           | add-here-the-secret   | IG rcs secret for remote consent service |
+| `IG.IG_SSA_SECRET`           | add-here-the-secret   | IG ssa secret for software publisher agent  |
+| `IG.IG_AS_IDM_CLIENT_SECRET` |  add-here-the-secret    | IG secret for IDM Client used on AS  |
+| `IG.IG_RS_IDM_CLIENT_SECRET` |  add-here-the-secret | IG secret for IDM Client used on RS |
+| `IG.IG_AGENT_ID`             | ig-agent              | IG agent id for IG policy agent |
+| `IG.IG_AGENT_PASSWORD`       | add-here-the-password | Ig agent password for IG policy agent |
 </details>
 
 **Identity variables**
