@@ -86,6 +86,9 @@ func main() {
 	fmt.Println("Attempting to configure Realm Default User Authentication Service")
 	securebanking.ConfigureRealmDefaultUserAuthenticationService()
 
+	fmt.Println("Attempting to configure Google Service Account")
+	securebanking.ConfigureGoogleServiceAccount(session.Cookie)
+
 	fmt.Println("Attempting to configure Google Secret Store")
 	securebanking.ConfigureGoogleSecretStore(session.Cookie)
 
@@ -188,7 +191,7 @@ func getIdentityPlatformSession() *common.Session {
 	return platform.FromUserSession(cookieName)
 }
 
-//This creates an admin user in CDK deployment that can be used to create new config. THis does not run when initializer is run against
+// This creates an admin user in CDK deployment that can be used to create new config. THis does not run when initializer is run against
 // FIDC
 func createIdentityPlatformOAuth2AdminClient(session *common.Session) {
 	// operation not supported on CDM (identity cloud platform)
@@ -207,9 +210,9 @@ func createRealm(session *common.Session) {
 	}
 }
 
-//sets org.forgerock.http.TrustTransactionHeader to true in AM's
-//https://<domain>/am/ui-admin/#configure/serverDefaults/advanced config
-//This makes AM trust the x-forgerock-transactionod header provided by IG and allows us to trace a trquest through their system
+// sets org.forgerock.http.TrustTransactionHeader to true in AM's
+// https://<domain>/am/ui-admin/#configure/serverDefaults/advanced config
+// This makes AM trust the x-forgerock-transactionod header provided by IG and allows us to trace a trquest through their system
 func createServerConfig(session *common.Session) {
 	platform.CreateServerConfig(session.Cookie)
 }
