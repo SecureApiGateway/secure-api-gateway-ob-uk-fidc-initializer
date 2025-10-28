@@ -23,6 +23,11 @@ spec:
                 configMapKeyRef:
                   name: as-sapig-deployment-config
                   key: SAPIG_TYPE
+            - name: ENVIRONMENT.SIGNING_KEY_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: fidc-deployment-config
+                  key: SIGNING_KEY_ID
             - name: ENVIRONMENT.CLOUDTYPE
               valueFrom:
                 configMapKeyRef:

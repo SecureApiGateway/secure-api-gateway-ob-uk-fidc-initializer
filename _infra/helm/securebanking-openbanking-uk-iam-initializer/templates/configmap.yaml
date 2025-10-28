@@ -3,4 +3,5 @@ kind: ConfigMap
 metadata:
   name: fidc-deployment-config
 data:
-  IDENTITY_GOOGLE_SECRET_STORE_OB_SIGNING_KEY_SECRET_NAME: {{ .Values.configmap.GoogleSecretOBSigningKeySecretName }}
+  IDENTITY_GOOGLE_SECRET_STORE_OB_SIGNING_KEY_SECRET_NAME: {{ .Values.configmap.googleSecretOBSigningKeySecretName }}
+  SIGNING_KEY_ID: {{ .Values.configmap.signingKeyID }}
