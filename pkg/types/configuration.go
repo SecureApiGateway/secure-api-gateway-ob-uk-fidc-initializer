@@ -42,6 +42,7 @@ type identity struct {
 	GoogleSecretStoreName                    string `mapstructure:"GOOGLE_SECRET_STORE_NAME"`
 	GoogleSecretStoreProject                 string `mapstructure:"GOOGLE_SECRET_STORE_PROJECT"`
 	GoogleSecretStoreOAuth2CaCertsSecretName string `mapstructure:"GOOGLE_SECRET_STORE_OAUTH2_CA_CERTS_SECRET_NAME"`
+	GoogleSecretStoreOBSigningKeySecretName  string `mapstructure:"GOOGLE_SECRET_STORE_OB_SIGNING_KEY_SECRET_NAME"`
 	DefaultUserAuthenticationService         string `mapstructure:"DEFAULT_USER_AUTHENTICATION_SERVICE"`
 }
 

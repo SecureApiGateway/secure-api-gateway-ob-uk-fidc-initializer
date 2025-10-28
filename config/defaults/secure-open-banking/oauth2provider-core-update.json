@@ -157,6 +157,9 @@
     "supportedAuthorizationResponseSigningAlgorithms": [
       "PS256"
     ],
+    "jwtSigningKidHeaderMappings": {
+      "dev-ig-ob-singing-key": "8rzhDR1TEWDVtb1iE6IZyTZ7r0E"
+    },
     "supportedTokenIntrospectionResponseEncryptionEnc": [
       "A256GCM",
       "A192GCM",

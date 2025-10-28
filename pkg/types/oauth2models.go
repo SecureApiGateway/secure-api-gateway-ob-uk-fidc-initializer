@@ -78,27 +78,28 @@ type (
 	}
 
 	OBAdvancedOIDCConfig struct {
-		JkwsURI                                                 string          `json:"jkwsURI"`
-		SupportedTokenIntrospectionResponseSigningAlgorithms    []string        `json:"supportedTokenIntrospectionResponseSigningAlgorithms"`
-		SupportedRequestParameterSigningAlgorithms              []string        `json:"supportedRequestParameterSigningAlgorithms"`
-		IDTokenInfoClientAuthenticationEnabled                  bool            `json:"idTokenInfoClientAuthenticationEnabled"`
-		AlwaysAddClaimsToToken                                  bool            `json:"alwaysAddClaimsToToken"`
-		LoaMapping                                              OBLoaMapping    `json:"loaMapping"`
-		SupportedTokenEndpointAuthenticationSigningAlgorithms   []string        `json:"supportedTokenEndpointAuthenticationSigningAlgorithms"`
-		SupportedRequestParameterEncryptionAlgorithms           []string        `json:"supportedRequestParameterEncryptionAlgorithms"`
-		AuthorisedOpenIDConnectSSOClients                       []interface{}   `json:"authorisedOpenIdConnectSSOClients"`
-		StoreOpsTokens                                          bool            `json:"storeOpsTokens"`
-		SupportedRequestParameterEncryptionEnc                  []string        `json:"supportedRequestParameterEncryptionEnc"`
-		DefaultACR                                              []interface{}   `json:"defaultACR"`
-		AmrMappings                                             AmrMappings     `json:"amrMappings"`
-		ClaimsParameterSupported                                bool            `json:"claimsParameterSupported"`
-		SupportedUserInfoEncryptionAlgorithms                   []string        `json:"supportedUserInfoEncryptionAlgorithms"`
-		SupportedUserInfoEncryptionEnc                          []string        `json:"supportedUserInfoEncryptionEnc"`
-		SupportedUserInfoSigningAlgorithms                      []string        `json:"supportedUserInfoSigningAlgorithms"`
-		SupportedTokenIntrospectionResponseEncryptionEnc        []string        `json:"supportedTokenIntrospectionResponseEncryptionEnc"`
-		SupportedTokenIntrospectionResponseEncryptionAlgorithms []string        `json:"supportedTokenIntrospectionResponseEncryptionAlgorithms"`
-		AuthorisedIdmDelegationClients                          []interface{}   `json:"authorisedIdmDelegationClients"`
-		SupportedAuthorizationResponseSigningAlgorithms         []string        `json:"supportedAuthorizationResponseSigningAlgorithms"`
+		JkwsURI                                                 string            `json:"jkwsURI"`
+		SupportedTokenIntrospectionResponseSigningAlgorithms    []string          `json:"supportedTokenIntrospectionResponseSigningAlgorithms"`
+		SupportedRequestParameterSigningAlgorithms              []string          `json:"supportedRequestParameterSigningAlgorithms"`
+		IDTokenInfoClientAuthenticationEnabled                  bool              `json:"idTokenInfoClientAuthenticationEnabled"`
+		AlwaysAddClaimsToToken                                  bool              `json:"alwaysAddClaimsToToken"`
+		LoaMapping                                              OBLoaMapping      `json:"loaMapping"`
+		SupportedTokenEndpointAuthenticationSigningAlgorithms   []string          `json:"supportedTokenEndpointAuthenticationSigningAlgorithms"`
+		SupportedRequestParameterEncryptionAlgorithms           []string          `json:"supportedRequestParameterEncryptionAlgorithms"`
+		AuthorisedOpenIDConnectSSOClients                       []interface{}     `json:"authorisedOpenIdConnectSSOClients"`
+		StoreOpsTokens                                          bool              `json:"storeOpsTokens"`
+		SupportedRequestParameterEncryptionEnc                  []string          `json:"supportedRequestParameterEncryptionEnc"`
+		DefaultACR                                              []interface{}     `json:"defaultACR"`
+		AmrMappings                                             AmrMappings       `json:"amrMappings"`
+		ClaimsParameterSupported                                bool              `json:"claimsParameterSupported"`
+		SupportedUserInfoEncryptionAlgorithms                   []string          `json:"supportedUserInfoEncryptionAlgorithms"`
+		SupportedUserInfoEncryptionEnc                          []string          `json:"supportedUserInfoEncryptionEnc"`
+		SupportedUserInfoSigningAlgorithms                      []string          `json:"supportedUserInfoSigningAlgorithms"`
+		SupportedTokenIntrospectionResponseEncryptionEnc        []string          `json:"supportedTokenIntrospectionResponseEncryptionEnc"`
+		SupportedTokenIntrospectionResponseEncryptionAlgorithms []string          `json:"supportedTokenIntrospectionResponseEncryptionAlgorithms"`
+		AuthorisedIdmDelegationClients                          []interface{}     `json:"authorisedIdmDelegationClients"`
+		SupportedAuthorizationResponseSigningAlgorithms         []string          `json:"supportedAuthorizationResponseSigningAlgorithms"`
+		JwtSigningKidHeaderMappings                             map[string]string `json:"jwtSigningKidHeaderMappings"`
 	}
 
 	CoreAdvancedOIDCConfig struct {
@@ -122,6 +123,7 @@ type (
 		SupportedTokenIntrospectionResponseEncryptionAlgorithms []string          `json:"supportedTokenIntrospectionResponseEncryptionAlgorithms"`
 		AuthorisedIdmDelegationClients                          []interface{}     `json:"authorisedIdmDelegationClients"`
 		SupportedAuthorizationResponseSigningAlgorithms         []string          `json:"supportedAuthorizationResponseSigningAlgorithms"`
+		JwtSigningKidHeaderMappings                             map[string]string `json:"jwtSigningKidHeaderMappings"`
 	}
 
 	ClientDynamicRegistrationConfig struct {

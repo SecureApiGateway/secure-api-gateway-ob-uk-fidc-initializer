@@ -2,11 +2,12 @@ package securebanking
 
 import (
 	"fmt"
-	"go.uber.org/zap"
 	"net/http"
 	"net/url"
 	"secure-banking-uk-initializer/pkg/common"
 	"secure-banking-uk-initializer/pkg/types"
+
+	"go.uber.org/zap"
 )
 
 // ConfigureGoogleSecretStore Configures Google Secret Store in AM if "GOOGLE_SECRET_STORE_NAME" is defined in config
@@ -30,6 +31,16 @@ func ConfigureGoogleSecretStore(cookie *http.Cookie) {
 			Alias:    oAuth2CaCertsSecretName,
 		}
 		configSecretMappings(storeName, []types.SecretMapping{oAuth2Secret}, cookie)
+	}
+
+	devigobsigningkey := common.Config.Identity.GoogleSecretStoreOBSigningKeySecretName
+	if devigobsigningkey != "" {
+		// Add in mapping for OB Signing Key
+		oAuth2Signing := types.SecretMapping{
+			SecretId: "am.services.oauth2.oidc.signing.RSA",
+			Alias:    devigobsigningkey,
+		}
+		configSecretMappings(storeName, []types.SecretMapping{oAuth2Signing}, cookie)
 	}
 }
 

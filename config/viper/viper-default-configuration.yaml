@@ -59,6 +59,7 @@ IDENTITY: # Root key for parameter values related with identity platform configu
   GOOGLE_SECRET_STORE_NAME: Google Secrets # name of the store, for CDK this store will be created if it doesn't exist. For FIDC this name must match the name of the pre-configured Google Secrets Store
   GOOGLE_SECRET_STORE_PROJECT: sbat-dev # name of the Google Cloud project which contains the secrets
   GOOGLE_SECRET_STORE_OAUTH2_CA_CERTS_SECRET_NAME: am-oauth2-ca-certs # Google Secrets Manager secret name for secret containing trusted OAuth2 CA certs
+  GOOGLE_SECRET_STORE_OB_SIGNING_KEY_SECRET_NAME: dev-ig-ob-signing-key # Google Secrets Manager secret name for secret containing IB OB Signing Key
 
 OB:
   ORGANISATION_ID: override this # This should be the Open Banking Org ID of the ASPIP in OB Directory
