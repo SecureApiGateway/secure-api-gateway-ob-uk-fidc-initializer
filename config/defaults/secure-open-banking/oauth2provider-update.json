@@ -160,7 +160,7 @@
       "PS256"
     ],
     "jwtSigningKidHeaderMappings": {
-      "dev-ig-ob-singing-key": "{{ .Environment.SIGNING_KEY_ID }}"
+      "dev-ig-ob-singing-key": "{{ .Environment.SigningKeyID }}"
     },
     "supportedTokenIntrospectionResponseEncryptionEnc": [
       "A256GCM",
