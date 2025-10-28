@@ -59,7 +59,8 @@
       "https://{{.Hosts.ASFQDN}}/am/oauth2/realms/root/realms/{{.Identity.AmRealm}}/access_token",
       "https://{{.Hosts.ASMtlsFQDN}}/am/oauth2/realms/root/realms/{{.Identity.AmRealm}}/access_token"
     ],
-    "tlsCertificateRevocationCheckingEnabled": false
+    "tlsCertificateRevocationCheckingEnabled": false,
+    "requestObjectProcessing": "JAR"
   },
   "coreOIDCConfig": {
     "supportedClaims": [

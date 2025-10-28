@@ -57,6 +57,7 @@ type (
 		TokenCompressionEnabled                    bool          `json:"tokenCompressionEnabled"`
 		AllowedAudienceValues                      []interface{} `json:"allowedAudienceValues"`
 		TLSCertificateRevocationCheckingEnabled    bool          `json:"tlsCertificateRevocationCheckingEnabled"`
+		RequestObjectProcessing                    []string      `json:"requestObjectProcessing"`
 	}
 
 	CoreOIDCConfig struct {
