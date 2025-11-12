@@ -2,8 +2,8 @@
 configmap:
   # Version of the Kubernetes API to use
   apiVersion: "v1"
-  googleSecretOBSigningKeySecretName: "dev-ig-ob-signing-key"
-  signingKeyID: "8rzhDR1TEWDVtb1iE6IZyTZ7r0E"
+  googleSecretOBSealKeySecretName: "dev-obseal-key"
+  signingKID: "0QidrUZc2Qk-PHqbYD5VEYGm_og"
 job:
   # We might not want to run the fidc configurator in all environments (for example Nightly) - setting to false will skip creating the fidc configurator in the cluster
   enabled: true

@@ -42,7 +42,7 @@ type identity struct {
 	GoogleSecretStoreName                    string `mapstructure:"GOOGLE_SECRET_STORE_NAME"`
 	GoogleSecretStoreProject                 string `mapstructure:"GOOGLE_SECRET_STORE_PROJECT"`
 	GoogleSecretStoreOAuth2CaCertsSecretName string `mapstructure:"GOOGLE_SECRET_STORE_OAUTH2_CA_CERTS_SECRET_NAME"`
-	GoogleSecretStoreOBSigningKeySecretName  string `mapstructure:"GOOGLE_SECRET_STORE_OB_SIGNING_KEY_SECRET_NAME"`
+	GoogleSecretStoreOBSealKeySecretName     string `mapstructure:"GOOGLE_SECRET_STORE_OB_SIGNING_KEY_SECRET_NAME"`
 	DefaultUserAuthenticationService         string `mapstructure:"DEFAULT_USER_AUTHENTICATION_SERVICE"`
 }
 
@@ -57,12 +57,12 @@ type ig struct {
 	IgAgentPassword string `mapstructure:"IG_AGENT_PASSWORD"`
 }
 type environment struct {
-	Verbose      bool   `mapstructure:"VERBOSE"`
-	Strict       bool   `mapstructure:"STRICT"`
-	CloudType    string `mapstructure:"CLOUDTYPE"`
-	Paths        paths  `mapstructure:"PATHS"`
-	SapigType    string `mapstructure:"SAPIGTYPE"`
-	SigningKeyID string `mapstructure:"SIGNING_KEY_ID"`
+	Verbose    bool   `mapstructure:"VERBOSE"`
+	Strict     bool   `mapstructure:"STRICT"`
+	CloudType  string `mapstructure:"CLOUDTYPE"`
+	Paths      paths  `mapstructure:"PATHS"`
+	SapigType  string `mapstructure:"SAPIGTYPE"`
+	SigningKID string `mapstructure:"SIGNING_KID"`
 }
 
 type paths struct {

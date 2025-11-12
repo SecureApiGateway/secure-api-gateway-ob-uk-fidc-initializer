@@ -33,12 +33,12 @@ func ConfigureGoogleSecretStore(cookie *http.Cookie) {
 		configSecretMappings(storeName, []types.SecretMapping{oAuth2Secret}, cookie)
 	}
 
-	devigobsigningkey := common.Config.Identity.GoogleSecretStoreOBSigningKeySecretName
-	if devigobsigningkey != "" {
-		// Add in mapping for OB Signing Key
+	devobsealkey := common.Config.Identity.GoogleSecretStoreOBSealKeySecretName
+	if devobsealkey != "" {
+		// Add in mapping for OBSeal Key
 		oAuth2Signing := types.SecretMapping{
 			SecretId: "am.services.oauth2.oidc.signing.RSA",
-			Alias:    devigobsigningkey,
+			Alias:    devobsealkey,
 		}
 		configSecretMappings(storeName, []types.SecretMapping{oAuth2Signing}, cookie)
 	}

@@ -23,11 +23,11 @@ spec:
                 configMapKeyRef:
                   name: as-sapig-deployment-config
                   key: SAPIG_TYPE
-            - name: ENVIRONMENT.SIGNING_KEY_ID
+            - name: ENVIRONMENT.SIGNING_KID
               valueFrom:
                 configMapKeyRef:
                   name: fidc-deployment-config
-                  key: SIGNING_KEY_ID
+                  key: SIGNING_KID
             - name: ENVIRONMENT.CLOUDTYPE
               valueFrom:
                 configMapKeyRef:
@@ -113,11 +113,11 @@ spec:
                   name: as-sapig-aic-deployment-config
                   key: IDENTITY_GOOGLE_SECRET_STORE_OAUTH2_CA_CERTS_SECRET_NAME
                   optional: true
-            - name: IDENTITY.GOOGLE_SECRET_STORE_OB_SIGNING_KEY_SECRET_NAME
+            - name: IDENTITY.GOOGLE_SECRET_STORE_OBSEAL_KEY_SECRET_NAME
               valueFrom:
                 configMapKeyRef:
                   name: fidc-deployment-config
-                  key: IDENTITY_GOOGLE_SECRET_STORE_OB_SIGNING_KEY_SECRET_NAME
+                  key: IDENTITY_GOOGLE_SECRET_STORE_OBSEAL_KEY_SECRET_NAME
                   optional: true
             {{- else }}
             - name: USERS.FR_PLATFORM_ADMIN_PASSWORD

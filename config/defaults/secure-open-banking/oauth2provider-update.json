@@ -161,7 +161,7 @@
       "PS256"
     ],
     "jwtSigningKidHeaderMappings": {
-      "{{ .Identity.GoogleSecretStoreOBSigningKeySecretName }}": "{{ .Environment.SigningKeyID }}"
+      "{{ .Identity.GoogleSecretStoreOBSealKeySecretName }}": "{{ .Environment.SigningKID }}"
     },
     "supportedTokenIntrospectionResponseEncryptionEnc": [
       "A256GCM",
