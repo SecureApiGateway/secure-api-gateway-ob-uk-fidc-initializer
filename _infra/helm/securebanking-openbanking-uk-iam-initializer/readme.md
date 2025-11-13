@@ -99,6 +99,12 @@ spec:
                       name: as-sapig-deployment-config
                       key: IDENTITY_GOOGLE_SECRET_STORE_OAUTH2_CA_CERTS_SECRET_NAME
                       optional: true
+                - name: IDENTITY.GOOGLE_SECRET_STORE_OBSEAL_KEY_SECRET_NAME
+                  valueFrom:
+                    configMapKeyRef:
+                      name: fidc-deployment-config
+                      key: IDENTITY_GOOGLE_SECRET_STORE_OBSEAL_KEY_SECRET_NAME
+                      optional: true
                 - name: USERS.FR_PLATFORM_ADMIN_PASSWORD
                   valueFrom:
                     secretKeyRef:
@@ -183,6 +189,7 @@ These are the environment variables declared in the `cronjob.yaml`;
 | IDENTITY.DEFAULT_USER_AUTHENTICATION_SERVICE | | | as-sapig-deployment-config | X |
 | IDENTITY.GOOGLE_SECRET_STORE_NAME | | | as-sapig-deployment-config | X |
 | IDENTITY.GOOGLE_SECRET_STORE_OAUTH2_CA_CERTS_SECRET_NAME | | | as-sapig-deployment-config | X |
+| IDENTITY.GOOGLE_SECRET_STORE_OBSEAL_KEY_SECRET_NAME | | | fidc-deployment-config | X |
 | USERS.FR_PLATFORM_ADMIN_PASSWORD | | Password for cloud instance. NOTE - This password can be used for `initializer-secret` or `am-env-secrets` depending on `ENVIRONMENT.CLOUDTYPE` set | If `ENVIRONMENT.CLOUDTYPE=FIDC` initializer-secret/cdm-admin-password else am-env-secrets/AM_PASSWORDS_AMADMIN_CLEAR |
 | USERS.FR_PLATFORM_ADMIN_USERNAME | | Username for cloud instance, only populated if `ENVIRONMENT.CLOUDTYPE=FIDC` | initializer-secret/cdm-admin-user |
 | IDENTITY.REMOTE_CONSENT_SIGNING_PUBLIC_KEY | PEM File | The pem file to be used for RCS signing | rcs-signing secret | 

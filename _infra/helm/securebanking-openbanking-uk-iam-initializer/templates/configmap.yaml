@@ -1,0 +1,7 @@
+apiVersion: {{ .Values.configmap.apiVersion }}
+kind: ConfigMap
+metadata:
+  name: fidc-deployment-config
+data:
+  IDENTITY_GOOGLE_SECRET_STORE_OBSEAL_KEY_SECRET_NAME: {{ .Values.configmap.googleSecretOBSealKeySecretName }}
+  SIGNING_KID: {{ .Values.configmap.signingKID }}
