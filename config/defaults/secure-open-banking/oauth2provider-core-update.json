@@ -93,6 +93,7 @@
     ]
   },
   "advancedOIDCConfig": {
+    "jkwsURI": "https://keystore.openbankingtest.org.uk/{{.OB.OrganisationId}}/{{.OB.SoftwareId}}.jwks",
     "supportedTokenIntrospectionResponseSigningAlgorithms": [
       "PS256"
     ],
