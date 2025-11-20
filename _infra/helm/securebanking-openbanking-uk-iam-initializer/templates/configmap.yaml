@@ -5,3 +5,5 @@ metadata:
 data:
   IDENTITY_GOOGLE_SECRET_STORE_OBSEAL_KEY_SECRET_NAME: {{ .Values.configmap.googleSecretOBSealKeySecretName }}
   SIGNING_KID: {{ .Values.configmap.signingKID }}
+  OB_ASPSP_ORG_ID: {{ .Values.configmap.obASPSPOrgID }}
+  OB_ASPSP_SOFTWARE_ID: {{ .Values.configmap.obASPSPSoftwareID }}
