@@ -126,6 +126,18 @@ spec:
                   name: am-env-secrets
                   key: AM_PASSWORDS_AMADMIN_CLEAR
             {{ end }}
+            - name: OB.ORGANISATION_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: fidc-deployment-config
+                  key: OB_ASPSP_ORG_ID
+                  optional: true
+            - name: OB.SOFTWARE_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: fidc-deployment-config
+                  key: OB_ASPSP_SOFTWARE_ID
+                  optional: true
             {{- if eq .Values.job.environment.sapigType "ob" }}
             - name: IDENTITY.REMOTE_CONSENT_SIGNING_PUBLIC_KEY
               valueFrom:
@@ -142,18 +154,6 @@ spec:
                 configMapKeyRef:
                   name: rs-sapig-deployment-config
                   key: RCS_CONSENT_RESPONSE_JWT_ISSUER
-            - name: OB.ORGANISATION_ID
-              valueFrom:
-                configMapKeyRef:
-                  name: rs-sapig-deployment-config
-                  key: OB_ASPSP_ORG_ID
-                  optional: false
-            - name: OB.SOFTWARE_ID
-              valueFrom:
-                configMapKeyRef:
-                  name: rs-sapig-deployment-config
-                  key: OB_ASPSP_SOFTWARE_ID
-                  optional: false
             {{ end }}
             - name: IG.IG_CLIENT_ID
               valueFrom:

@@ -4,6 +4,8 @@ configmap:
   apiVersion: "v1"
   googleSecretOBSealKeySecretName: "dev-obseal-key"
   signingKID: "0QidrUZc2Qk-PHqbYD5VEYGm_og"
+  obASPSPOrgID: "0015800001041REAAY"
+  obASPSPSoftwareID: "YZyyZHejcCGRrWkh3OfkLI"
 job:
   # We might not want to run the fidc configurator in all environments (for example Nightly) - setting to false will skip creating the fidc configurator in the cluster
   enabled: true
