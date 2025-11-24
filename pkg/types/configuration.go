@@ -47,15 +47,16 @@ type identity struct {
 }
 
 type ig struct {
-	IgClientId      string `mapstructure:"IG_CLIENT_ID"`
-	IgClientSecret  string `mapstructure:"IG_CLIENT_SECRET"`
-	IgRcsSecret     string `mapstructure:"IG_RCS_SECRET"`
-	IgSsaSecret     string `mapstructure:"IG_SSA_SECRET"`
-	IgIdmUser       string `mapstructure:"IG_IDM_USER"`
-	IgIdmPassword   string `mapstructure:"IG_IDM_PASSWORD"`
-	IgAgentId       string `mapstructure:"IG_AGENT_ID"`
-	IgAgentPassword string `mapstructure:"IG_AGENT_PASSWORD"`
+	IgClientId          string `mapstructure:"IG_CLIENT_ID"`
+	IgClientSecret      string `mapstructure:"IG_CLIENT_SECRET"`
+	IgRcsSecret         string `mapstructure:"IG_RCS_SECRET"`
+	IgSsaSecret         string `mapstructure:"IG_SSA_SECRET"`
+	IgAsIdmClientSecret string `mapstructure:"IG_AS_IDM_CLIENT_SECRET"`
+	IgRsIdmClientSecret string `mapstructure:"IG_RS_IDM_CLIENT_SECRET"`
+	IgAgentId           string `mapstructure:"IG_AGENT_ID"`
+	IgAgentPassword     string `mapstructure:"IG_AGENT_PASSWORD"`
 }
+
 type environment struct {
 	Verbose    bool   `mapstructure:"VERBOSE"`
 	Strict     bool   `mapstructure:"STRICT"`
