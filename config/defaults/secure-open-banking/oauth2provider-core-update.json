@@ -56,8 +56,10 @@
     "expClaimRequiredInRequestObject": true,
     "tokenCompressionEnabled": false,
     "allowedAudienceValues": [
-      "https://{{.Hosts.ASFQDN}}/am/oauth2/realms/root/realms/{{.Identity.AmRealm}}/access_token",
-      "https://{{.Hosts.ASMtlsFQDN}}/am/oauth2/realms/root/realms/{{.Identity.AmRealm}}/access_token"
+      "https://{{.Hosts.ASMtlsFQDN}}/am/oauth2/realms/root/realms/{{.Identity.AmRealm}}/access_token",
+      "https://{{.Hosts.ASMtlsFQDN}}/am/oauth2/realms/root/realms/{{.Identity.AmRealm}}/par",
+      "https://{{.Hosts.ASMtlsFQDN}}/am/oauth2/realms/root/realms/{{.Identity.AmRealm}}/authorize",
+      "https://{{.Hosts.ASMtlsFQDN}}/am/oauth2/realms/root/realms/{{.Identity.AmRealm}}/register"
     ],
     "tlsCertificateRevocationCheckingEnabled": false,
     "requestObjectProcessing": "JAR"
