@@ -15,7 +15,7 @@ ENVIRONMENT: # Root key to define the environment program properties
   # CDM value: CDM (Cloud Deployment Model) identity cloud platform
   # FIDC (Forgerock Identity Cloud) identity cloud platform
   CLOUDTYPE: CDK
-  SIGNING_KID: 0QidrUZc2Qk-PHqbYD5VEYGm_og
+  SIGNING_KID: zBlb3x2klab0COMzC5ROYxNo8n4
   PATHS: # Key to define the paths for files to populate configuration data to the platform
     CONFIG_BASE_DIRECTORY: config/defaults/ # Base configuration path folder
     CONFIG_SECURE_BANKING: config/defaults/secure-open-banking/ # Path folder for secure banking
