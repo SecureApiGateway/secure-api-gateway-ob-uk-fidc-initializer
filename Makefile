@@ -1,5 +1,7 @@
 service := secureopenbanking-uk-iam-initializer
+name := securebanking-openbanking-uk-iam-initializer
 repo := europe-west4-docker.pkg.dev/sbat-gcr-develop/sapig-docker-artifact
+helm_repo := forgerock-helm/secure-api-gateway/${name}/
 binary-name := initialize
 latesttagversion := latest
 
@@ -44,7 +46,16 @@ endif
    		docker push ${repo}/securebanking/${service}:${TAG}; \
    	fi;
 
-ifdef release-repo
-	docker tag ${repo}/securebanking/${service}:${tag} ${release-repo}/securebanking/${service}:${tag}
-	docker push ${release-repo}/securebanking/${service}:${tag}
+package_helm:
+ifndef version
+	$(error A version must be supplied, Eg. make helm version=1.0.0)
 endif
+	helm dependency update _infra/helm/${name}
+	helm template _infra/helm/${name}
+	helm package _infra/helm/${name} --version ${version} --app-version ${version}
+
+publish_helm:
+ifndef version
+	$(error A version must be supplied, Eg. make helm version=1.0.0)
+endif
+	jf rt upload  ./*-${version}.tgz ${helm_repo}
