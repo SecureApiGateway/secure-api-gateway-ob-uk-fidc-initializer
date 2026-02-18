@@ -5,7 +5,7 @@
       "inherited": false,
       "value": "Active"
     },
-    "userpassword": "{{.Ig.IgClientSecret}}",
+    "userpassword": "{{.Ig.IgRsIdmClientSecret}}",
     "clientType": {
       "inherited": false,
       "value": "Confidential"
@@ -23,7 +23,7 @@
     "scopes": {
       "inherited": false,
       "value": [
-        "dynamic_client_registration",
+        "fr:idm:*",
         "trusted_gateway"
       ]
     },
