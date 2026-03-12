@@ -51,8 +51,6 @@ type ig struct {
 	IgClientSecret  string `mapstructure:"IG_CLIENT_SECRET"`
 	IgRcsSecret     string `mapstructure:"IG_RCS_SECRET"`
 	IgSsaSecret     string `mapstructure:"IG_SSA_SECRET"`
-	IgIdmUser       string `mapstructure:"IG_IDM_USER"`
-	IgIdmPassword   string `mapstructure:"IG_IDM_PASSWORD"`
 	IgAgentId       string `mapstructure:"IG_AGENT_ID"`
 	IgAgentPassword string `mapstructure:"IG_AGENT_PASSWORD"`
 }

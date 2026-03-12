@@ -169,16 +169,6 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.job.environment.asSecret }}
                   key: IG_CLIENT_SECRET
-            - name: IG.IG_IDM_USER
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.job.environment.asSecret }}
-                  key: IG_IDM_USER
-            - name: IG.IG_IDM_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.job.environment.asSecret }}
-                  key: IG_IDM_PASSWORD
           command: [ "/bin/sh", "-c" ]
           args:
             - |
