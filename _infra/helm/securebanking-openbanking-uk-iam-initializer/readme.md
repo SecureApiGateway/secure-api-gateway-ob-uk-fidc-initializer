@@ -140,16 +140,6 @@ spec:
                     secretKeyRef:
                       name: as-sapig-secrets
                       key: IG_CLIENT_SECRET
-                - name: IG.IG_IDM_USER
-                  valueFrom:
-                    secretKeyRef:
-                      name: as-sapig-secrets
-                      key: IG_IDM_USER
-                - name: IG.IG_IDM_PASSWORD
-                  valueFrom:
-                    secretKeyRef:
-                      name: as-sapig-secrets
-                      key: IG_IDM_PASSWORD
                 - name: IG.IG_AGENT_ID
                   valueFrom:
                     secretKeyRef:
@@ -197,8 +187,6 @@ These are the environment variables declared in the `cronjob.yaml`;
 IDENTITY.REMOTE_CONSENT_ID | secure-open-banking-rcs | | as-sapig-deployment-config/RCS_CONSENT_RESPONSE_JWT_SIGNINGKEYID | 
 | IG.IG_CLIENT_ID | | | as-sapig-secrets |
 | IG.IG_CLIENT_SECRET | | | as-sapig-secrets |
-| IG.IG_IDM_USER | | | as-sapig-secrets |
-| IG.IG_IDM_PASSWORD | | | as-sapig-secrets |
 | IG.IG_AGENT_ID | | | as-sapig-secrets |
 | IG.IG_AGENT_PASSWORD | | | as-sapig-secrets |
 

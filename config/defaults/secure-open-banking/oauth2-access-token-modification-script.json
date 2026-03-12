@@ -1,0 +1,8 @@
+{
+  "_id": null,
+  "context": "OAUTH2_ACCESS_TOKEN_MODIFICATION",
+  "name": "OPENIG FAPI jwks_uri injection",
+  "description": "Inject jwks_uri from client properties into the Access Token.",
+  "language": "JAVASCRIPT",
+  "script": "<generated from oauth2-access-token-modification-script.js>"
+}
