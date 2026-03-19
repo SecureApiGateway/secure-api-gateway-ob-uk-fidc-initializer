@@ -1,0 +1,8 @@
+{
+  "_id": null,
+  "context": "OAUTH2_DYNAMIC_CLIENT_REGISTRATION",
+  "name": "OPENIG FAPI DCR extension",
+  "description": "Extract jwks_uri from SSA and persist it in clientProperties of the oauth2client.",
+  "language": "JAVASCRIPT",
+  "script": "<generated from oauth2-dcr-script.js>"
+}

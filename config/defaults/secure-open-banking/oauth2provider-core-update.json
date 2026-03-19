@@ -191,7 +191,8 @@
     "generateRegistrationAccessTokens": true,
     "requiredSoftwareStatementAttestedAttributes": [],
     "dynamicClientRegistrationScope": "dynamic_client_registration",
-    "allowDynamicRegistration": false
+    "allowDynamicRegistration": false,
+    "dynamicClientRegistrationScript" : ""
   },
   "cibaConfig": {
     "supportedCibaSigningAlgorithms": [
@@ -205,7 +206,7 @@
     "deviceCodeLifetime": 300
   },
   "pluginsConfig" : {
-    "accessTokenModificationScript": "d22f9a0c-426a-4466-b95e-d0f125b0d5fa",
+    "accessTokenModificationScript": "",
     "accessTokenEnricherClass": "org.forgerock.openam.oauth2.OpenAMScopeValidator",
     "accessTokenModificationPluginType": "SCRIPTED",
     "accessTokenModifierClass": "org.forgerock.openam.oauth2.OpenAMScopeValidator",

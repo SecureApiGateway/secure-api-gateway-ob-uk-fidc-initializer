@@ -12,40 +12,6 @@ import (
 	"go.uber.org/zap"
 )
 
-func CreateIGServiceUser() {
-	if httprest.ServiceIdentityExists(common.Config.Ig.IgIdmUser) {
-		zap.L().Info("Skipping creation of IG service user")
-		return
-	}
-
-	zap.L().Info("Creating IG service user")
-
-	user := &types.ServiceUser{
-		UserName:  common.Config.Ig.IgIdmUser,
-		SN:        "Service Account",
-		GivenName: "IG",
-		Mail:      "ig@acme.com",
-		Password:  common.Config.Ig.IgIdmPassword,
-		AuthzRole: []types.AuthzRole{
-			{
-				Ref: "internal/role/openidm-admin",
-			},
-		},
-	}
-	path := "/openidm/managed/user/?_action=create"
-	//FIDC IDM default user managed objects use a different naming pattern <realm>_user Eg:alpha_user
-	if common.Config.Environment.CloudType == "FIDC" {
-		path = "/openidm/managed/" + common.Config.Identity.AmRealm + "_user/?_action=create"
-	}
-	_, s := httprest.Client.Post(path, user, map[string]string{
-		"Accept":       "*/*",
-		"Content-Type": "application/json",
-		"Connection":   "keep-alive",
-	})
-
-	zap.S().Infow("IG Service User", "statusCode", s)
-}
-
 // CreateIGOAuth2Client -
 func CreateIGOAuth2Client() {
 	if httprest.OAuth2AgentClientsExist(common.Config.Ig.IgClientId) {

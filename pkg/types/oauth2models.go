@@ -134,6 +134,7 @@ type (
 		RequiredSoftwareStatementAttestedAttributes        []interface{} `json:"requiredSoftwareStatementAttestedAttributes"`
 		DynamicClientRegistrationScope                     string        `json:"dynamicClientRegistrationScope"`
 		AllowDynamicRegistration                           bool          `json:"allowDynamicRegistration"`
+        DynamicClientRegistrationScript                    string        `json:"dynamicClientRegistrationScript"`
 	}
 
 	CibaConfig struct {

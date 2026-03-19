@@ -165,16 +165,6 @@ spec:
                 secretKeyRef:
                   name: as-sapig-secrets
                   key: IG_CLIENT_SECRET
-            - name: IG.IG_IDM_USER
-              valueFrom:
-                secretKeyRef:
-                  name: as-sapig-secrets
-                  key: IG_IDM_USER
-            - name: IG.IG_IDM_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: as-sapig-secrets
-                  key: IG_IDM_PASSWORD
             - name: IG.IG_AGENT_ID
               valueFrom:
                 secretKeyRef:

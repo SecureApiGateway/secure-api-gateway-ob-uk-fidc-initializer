@@ -1,9 +1,0 @@
-{
-  "_id": "123",
-  "objects": [{
-    "name": "api_client"
-  },
-  {
-    "name": "anotherObject"
-  }]
-}
