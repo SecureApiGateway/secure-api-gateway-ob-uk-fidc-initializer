@@ -19,69 +19,63 @@ spec:
             - name: ENVIRONMENT.STRICT
               value: {{ .Values.job.environment.strict | quote }}
             - name: ENVIRONMENT.SAPIGTYPE
-              valueFrom:
-                configMapKeyRef:
-                  name: as-sapig-deployment-config
-                  key: SAPIG_TYPE
+              value: {{ .Values.job.environment.sapigType | quote }}
+            - name: ENVIRONMENT.CLOUDTYPE
+              value: {{ .Values.job.environment.cloudType | quote }}
             - name: ENVIRONMENT.SIGNING_KID
               valueFrom:
                 configMapKeyRef:
                   name: fidc-deployment-config
                   key: SIGNING_KID
-            - name: ENVIRONMENT.CLOUDTYPE
-              valueFrom:
-                configMapKeyRef:
-                  name: as-sapig-deployment-config
-                  key: CLOUD_TYPE
             - name: IDENTITY_PLATFORM_FQDN # variable to run the command shell, the shell doesn't support variables with dot.
               valueFrom:
                 configMapKeyRef:
-                  name: as-sapig-deployment-config
+                  name: {{ .Values.job.environment.asDeploymentConfigMap }}
                   key: IDENTITY_PLATFORM_FQDN
             - name: HOSTS.BASE_FQDN
               valueFrom:
                 configMapKeyRef:
-                  name: as-sapig-deployment-config
+                  name: {{ .Values.job.environment.asDeploymentConfigMap }}
                   key: BASE_FQDN
             - name: HOSTS.AS_FQDN
               valueFrom:
                 configMapKeyRef:
-                  name: as-sapig-deployment-config
+                  name: {{ .Values.job.environment.asDeploymentConfigMap }}
                   key: AS_FQDN
             - name: HOSTS.AS_MTLS_FQDN
               valueFrom:
                 configMapKeyRef:
-                  name: as-sapig-deployment-config
+                  name: {{ .Values.job.environment.asDeploymentConfigMap }}
                   key: AS_MTLS_FQDN
             - name: HOSTS.RS_FQDN
               valueFrom:
                 configMapKeyRef:
-                  name: rs-sapig-deployment-config
+                  name: {{ .Values.job.environment.rsDeploymentConfigMap }}
                   key: RS_FQDN
             - name: HOSTS.RS_MTLS_FQDN
               valueFrom:
                 configMapKeyRef:
-                  name: rs-sapig-deployment-config
+                  name: {{ .Values.job.environment.rsDeploymentConfigMap }}
                   key: RS_MTLS_FQDN
             - name: HOSTS.IDENTITY_PLATFORM_FQDN
               valueFrom:
                 configMapKeyRef:
-                  name: as-sapig-deployment-config
+                  name: {{ .Values.job.environment.asDeploymentConfigMap }}
                   key: IDENTITY_PLATFORM_FQDN
             - name: HOSTS.TRUSTED_DIR_FQDN # variable to run the command shell, the shell doesn't support variables with dot.
               valueFrom:
                 configMapKeyRef:
-                  name: as-sapig-deployment-config
+                  name: {{ .Values.job.environment.asDeploymentConfigMap }}
                   key: TEST_DIRECTORY_FQDN
             - name: IDENTITY.AM_REALM
               valueFrom:
                 configMapKeyRef:
-                  name: as-sapig-deployment-config
+                  name: {{ .Values.job.environment.asDeploymentConfigMap }}
                   key: AM_REALM
             - name: IDENTITY.GOOGLE_SECRET_STORE_PROJECT
               valueFrom:
                 configMapKeyRef:
-                  name: as-sapig-deployment-config
+                  name: {{ .Values.job.environment.asDeploymentConfigMap }}
                   key: IDENTITY_GOOGLE_SECRET_STORE_PROJECT
                   optional: true
             {{- if eq .Values.job.environment.cloudType "FIDC" }}
@@ -98,7 +92,7 @@ spec:
             - name: IDENTITY.DEFAULT_USER_AUTHENTICATION_SERVICE
               valueFrom:
                 configMapKeyRef:
-                  name: as-sapig-deployment-config
+                  name: {{ .Values.job.environment.asDeploymentConfigMap }}
                   key: IDENTITY_DEFAULT_USER_AUTHENTICATION_SERVICE
                   optional: true
             - name: IDENTITY.GOOGLE_SECRET_STORE_NAME
@@ -147,44 +141,34 @@ spec:
             - name: IDENTITY.REMOTE_CONSENT_SIGNING_KEY_ID
               valueFrom:
                 configMapKeyRef:
-                  name: rs-sapig-deployment-config
+                  name: {{ .Values.job.environment.rsDeploymentConfigMap }}
                   key: RCS_CONSENT_RESPONSE_JWT_SIGNINGKEYID
             - name: IDENTITY.REMOTE_CONSENT_ID
               valueFrom:
                 configMapKeyRef:
-                  name: rs-sapig-deployment-config
+                  name: {{ .Values.job.environment.rsDeploymentConfigMap }}
                   key: RCS_CONSENT_RESPONSE_JWT_ISSUER
             {{ end }}
             - name: IG.IG_CLIENT_ID
               valueFrom:
                 secretKeyRef:
-                  name: as-sapig-secrets
+                  name: {{ .Values.job.environment.asSecret }}
                   key: IG_CLIENT_ID
             - name: IG.IG_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: as-sapig-secrets
+                  name: {{ .Values.job.environment.asSecret }}
                   key: IG_CLIENT_SECRET
             - name: IG.IG_IDM_USER
               valueFrom:
                 secretKeyRef:
-                  name: as-sapig-secrets
+                  name: {{ .Values.job.environment.asSecret }}
                   key: IG_IDM_USER
             - name: IG.IG_IDM_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: as-sapig-secrets
+                  name: {{ .Values.job.environment.asSecret }}
                   key: IG_IDM_PASSWORD
-            - name: IG.IG_AGENT_ID
-              valueFrom:
-                secretKeyRef:
-                  name: as-sapig-secrets
-                  key: IG_AGENT_ID
-            - name: IG.IG_AGENT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: as-sapig-secrets
-                  key: IG_AGENT_PASSWORD
           command: [ "/bin/sh", "-c" ]
           args:
             - |

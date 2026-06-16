@@ -124,7 +124,6 @@ func main() {
 
 	platform.CreateIGServiceUser()
 	platform.CreateIGOAuth2Client()
-	platform.CreateIGPolicyAgent()
 
 	platform.ApplySystemClients(session.Cookie)
 
