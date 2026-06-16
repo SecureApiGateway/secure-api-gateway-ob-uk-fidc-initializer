@@ -24,7 +24,7 @@ job:
     # STRICT mode will simply warn of client/server errors.
     strict: true
     asDeploymentConfigMap: ig-fapi-pep-as-config
-    rsDeploymentConfigMap: rs-sapig-deployment-config
+    rsDeploymentConfigMap: ig-fapi-pep-rs-config
     asSecret: ig-fapi-pep-as-secrets
   image:
     # Repo And Tag are not provided here as the value for the repo will be unique for each user/customer as they will be building their own docker images and push to their own Container Registries 
