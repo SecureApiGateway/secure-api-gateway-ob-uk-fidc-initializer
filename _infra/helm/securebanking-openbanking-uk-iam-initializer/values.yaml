@@ -23,6 +23,9 @@ job:
     # be it client error, server error or other. Turning off (false)
     # STRICT mode will simply warn of client/server errors.
     strict: true
+    asDeploymentConfigMap: ig-fapi-pep-as-config
+    rsDeploymentConfigMap: rs-sapig-deployment-config
+    asSecret: ig-fapi-pep-as-secrets
   image:
     # Repo And Tag are not provided here as the value for the repo will be unique for each user/customer as they will be building their own docker images and push to their own Container Registries 
     # The tag will use the .AppVersion as the default, meaning that customers who want to install V1 will get V1.0.0 of the software - you may supply a hard coded version if required  

@@ -53,8 +53,6 @@ type ig struct {
 	IgSsaSecret     string `mapstructure:"IG_SSA_SECRET"`
 	IgIdmUser       string `mapstructure:"IG_IDM_USER"`
 	IgIdmPassword   string `mapstructure:"IG_IDM_PASSWORD"`
-	IgAgentId       string `mapstructure:"IG_AGENT_ID"`
-	IgAgentPassword string `mapstructure:"IG_AGENT_PASSWORD"`
 }
 type environment struct {
 	Verbose    bool   `mapstructure:"VERBOSE"`
