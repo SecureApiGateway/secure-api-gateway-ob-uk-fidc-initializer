@@ -72,6 +72,27 @@ func CreateIGOAuth2Client() {
 	zap.S().Infow("IG OAuth2 Client", "statusCode", s)
 }
 
+// CreateIGPolicyAgent -
+func CreateIGPolicyAgent() {
+	zap.L().Info("Creating IG Policy agent")
+	policyAgent := &types.PolicyAgent{
+		Userpassword: common.Config.Ig.IgAgentPassword,
+		IgTokenIntrospection: types.IgTokenIntrospection{
+			Value:     "Realm",
+			Inherited: false,
+		},
+	}
+	path := fmt.Sprintf("/am/json/realms/root/realms/"+common.Config.Identity.AmRealm+"/realm-config/agents/IdentityGatewayAgent/%s", common.Config.Ig.IgAgentId)
+	s := httprest.Client.Put(path, policyAgent, map[string]string{
+		"Accept":           "application/json",
+		"Content-Type":     "application/json",
+		"Connection":       "keep-alive",
+		"X-Requested-With": "ForgeRock Identity Cloud Postman Collection",
+	})
+
+	zap.S().Infow("IG Policy Agent", "statusCode", s)
+}
+
 func CreateIdentityPlatformOAuth2AdminClient(cookie *http.Cookie) {
 	zap.L().Info("Creating Identity Platform admin oauth2 client")
 

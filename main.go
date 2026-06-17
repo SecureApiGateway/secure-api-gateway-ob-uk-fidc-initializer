@@ -125,6 +125,10 @@ func main() {
 	platform.CreateIGServiceUser()
 	platform.CreateIGOAuth2Client()
 
+	if common.Config.Environment.SapigType == "ob" {
+		platform.CreateIGPolicyAgent()
+	}
+
 	platform.ApplySystemClients(session.Cookie)
 
 	time.Sleep(5 * time.Second)
