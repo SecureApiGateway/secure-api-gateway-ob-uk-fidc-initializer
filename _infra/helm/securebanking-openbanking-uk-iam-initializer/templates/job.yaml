@@ -148,6 +148,16 @@ spec:
                 configMapKeyRef:
                   name: {{ .Values.job.environment.rsDeploymentConfigMap }}
                   key: RCS_CONSENT_RESPONSE_JWT_ISSUER
+            - name: IG.IG_AGENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.job.environment.rsObSecret }}
+                  key: IG_AGENT_ID
+            - name: IG.IG_AGENT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.job.environment.rsObSecret }}
+                  key: IG_AGENT_PASSWORD
             {{ end }}
             - name: IG.IG_CLIENT_ID
               valueFrom:
