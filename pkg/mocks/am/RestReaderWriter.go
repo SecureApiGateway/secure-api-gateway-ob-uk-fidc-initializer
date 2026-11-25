@@ -22,7 +22,14 @@ func (_m *RestReaderWriter) Get(_a0 string, _a1 map[string]string) ([]byte, int)
 		}
 	}
 
-	return r0, 200
+	var r1 int
+	if rf, ok := ret.Get(1).(func(string, map[string]string) int); ok {
+		r1 = rf(_a0, _a1)
+	} else {
+		r1 = ret.Get(1).(int)
+	}
+
+	return r0, r1
 }
 
 func (_m *RestReaderWriter) GetRS(_a0 string, _a1 map[string]string) ([]byte, int) {
@@ -37,7 +44,14 @@ func (_m *RestReaderWriter) GetRS(_a0 string, _a1 map[string]string) ([]byte, in
 		}
 	}
 
-	return r0, 200
+	var r1 int
+	if rf, ok := ret.Get(1).(func(string, map[string]string) int); ok {
+		r1 = rf(_a0, _a1)
+	} else {
+		r1 = ret.Get(1).(int)
+	}
+
+	return r0, r1
 }
 
 // Patch provides a mock function with given fields: _a0, _a1, _a2

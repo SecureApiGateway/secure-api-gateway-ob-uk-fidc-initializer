@@ -117,11 +117,11 @@ func main() {
 	accessTokenModScriptId := securebanking.CreateAccessTokenModificationScript(session.Cookie)
 
 	if common.Config.Environment.SapigType == "ob" {
-		fmt.Println("Attempt to Create OB OAUTH2 Providers...")
-		securebanking.UpdateOBOAuth2Provider(oidcClaimsScriptId, dcrScriptId, accessTokenModScriptId)
+		fmt.Println("Attempt to configure OB OAUTH2 Providers...")
+		securebanking.ConfigureOBOAuth2Provider(oidcClaimsScriptId, dcrScriptId, accessTokenModScriptId)
 	} else {
-		fmt.Println("Attempt to Create Core OAUTH2 Providers...")
-		securebanking.UpdateCoreOAuth2Provider(oidcClaimsScriptId, dcrScriptId, accessTokenModScriptId)
+		fmt.Println("Attempt to configure Core OAUTH2 Providers...")
+		securebanking.ConfigureCoreOAuth2Provider(oidcClaimsScriptId, dcrScriptId, accessTokenModScriptId)
 	}
 
 	securebanking.CreateBaseURLSourceService(session.Cookie)

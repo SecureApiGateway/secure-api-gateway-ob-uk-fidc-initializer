@@ -15,7 +15,7 @@ func TestFindExistingOAuth2AgentClient(t *testing.T) {
 	httprest.Client = mockRestReaderWriter
 	buffer, _ := ioutil.ReadFile("client-check-test.json")
 	mockRestReaderWriter.On("Get", mock.Anything, mock.Anything).
-		Return(buffer)
+		Return(buffer, 200)
 
 	b := httprest.OAuth2AgentClientsExist("Doesnt existy")
 	assert.False(t, b)

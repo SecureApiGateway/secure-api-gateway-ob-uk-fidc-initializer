@@ -1,0 +1,21 @@
+{
+  "_id": "",
+  "_rev": "-254165592",
+  "advancedOAuth2Config": {
+    "tokenSigningAlgorithm": "PS256",
+    "tlsClientCertificateTrustedHeader": "ssl-client-cert"
+  },
+  "clientDynamicRegistrationConfig": {
+    "allowDynamicRegistration": true,
+    "dynamicClientRegistrationScript": "[Empty]"
+  },
+  "coreOAuth2Config": {
+    "accessTokenLifetime": 360000,
+    "statelessTokensEnabled": true
+  },
+  "pluginsConfig": {
+    "accessTokenModificationScript": "[Empty]",
+    "oidcClaimsScript": "[Empty]",
+    "validateScopeScript": "[Empty]"
+  }
+}
