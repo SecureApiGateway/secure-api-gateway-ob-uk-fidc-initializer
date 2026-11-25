@@ -1,6 +1,7 @@
 package securebanking
 
 import (
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -236,26 +237,44 @@ func softwarePublisherAgentExists(name string) bool {
 
 // CreateOIDCClaimsScript -
 func CreateOIDCClaimsScript(cookie *http.Cookie) string {
+    return CreateScript(cookie, "oidc-script", "groovy")
+}
+// CreateAccessTokenModificationScript -
+func CreateAccessTokenModificationScript(cookie *http.Cookie) string {
+    return CreateScript(cookie, "oauth2-access-token-modification-script", "js")
+}
+// CreateDCRScript -
+func CreateDCRScript(cookie *http.Cookie) string {
+    return CreateScript(cookie, "oauth2-dcr-script", "js")
+}
 
-	zap.L().Info("Creating OIDC claims script")
-	b, err := ioutil.ReadFile(common.Config.Environment.Paths.ConfigSecureBanking + "oidc-script.json")
+func CreateScript(cookie *http.Cookie, scriptIdentifier string, scriptExt string) string {
+
+	zap.L().Info("Creating script " + scriptIdentifier)
+	jsonBytes, err := ioutil.ReadFile(common.Config.Environment.Paths.ConfigSecureBanking + scriptIdentifier + ".json")
 	if err != nil {
 		panic(err)
 	}
 
-	path := fmt.Sprintf("https://%s/am/json/"+common.Config.Identity.AmRealm+"/scripts/?_action=create", common.Config.Hosts.IdentityPlatformFQDN)
+	requestPayload := &types.RequestScript{}
 
-	claimsScript := &types.RequestScript{}
-
-	if err = json.Unmarshal(b, claimsScript); err != nil {
+	if err = json.Unmarshal(jsonBytes, requestPayload); err != nil {
 		panic(err)
 	}
 
-	if id := httprest.GetScriptIdByName(claimsScript.Name); id != "" {
+	if id := httprest.GetScriptIdByName(requestPayload.Name); id != "" {
 		zap.L().Info("Script exists")
 		return id
 	}
+	scriptBytes, err := ioutil.ReadFile(common.Config.Environment.Paths.ConfigSecureBanking + scriptIdentifier + "." +
+	scriptExt)
+	if err != nil {
+		panic(err)
+	}
+	requestPayload.Script = base64.StdEncoding.EncodeToString(scriptBytes)
 
+	path := fmt.Sprintf("https://%s/am/json/"+common.Config.Identity.AmRealm+"/scripts/?_action=create", common.Config.Hosts.IdentityPlatformFQDN)
+	resultPayload := &types.RequestScript{}
 	resp, err := restClient.R().
 		SetHeader("Accept", "*/*").
 		SetHeader("Content-Type", "application/json").
@@ -263,35 +282,40 @@ func CreateOIDCClaimsScript(cookie *http.Cookie) string {
 		SetHeader("Accept-API-Version", "protocol=2.0,resource=1.0").
 		SetContentLength(true).
 		SetCookie(cookie).
-		SetResult(claimsScript).
-		SetBody(b).
+		SetResult(resultPayload).
+		SetBody(requestPayload).
 		Post(path)
 
 	common.RaiseForStatus(err, resp.Error(), resp.StatusCode())
 
-	zap.S().Infow("OIDC claims script", "statusCode", resp.StatusCode(), "claimsScriptID", claimsScript.ID, "createdBy", claimsScript.CreatedBy)
-	return claimsScript.ID
+	zap.S().Infow("Script", "statusCode", resp.StatusCode(), "scriptID", resultPayload.ID, "createdBy", resultPayload.CreatedBy)
+	return resultPayload.ID
 }
 
 // UpdateOAuth2Provider - update the oauth 2 provider, must supply the claimScript ID
-func UpdateOBOAuth2Provider(claimsScriptID string) {
-	zap.S().Info("UpdateOAuth2Provider() Creating OAuth2Provider service in the " + common.Config.Identity.AmRealm + " realm")
+func ConfigureOBOAuth2Provider(claimsScriptID string, dcrScriptId string, accessTokenModScriptId string) {
+	zap.S().Info("ConfigureOAuth2Provider() Configuring the OAuth2Provider service in the " + common.Config.Identity.AmRealm + " realm")
 	oauth2Provider := &types.OBOAuth2Provider{}
 	if err := common.Unmarshal(common.Config.Environment.Paths.ConfigSecureBanking+"oauth2provider-update.json", &common.Config, oauth2Provider); err != nil {
 		panic(err)
 	}
 
-	if oauth2ProviderExists(oauth2Provider.Type.ID) {
-		zap.L().Info("UpdateOAuth2Provider() OAuth2 provider exists")
+	path := "/am/json/" + common.Config.Identity.AmRealm + "/realm-config/services/oauth-oidc"
+	if currentConfig := readOAuth2Provider(path); currentConfig != nil {
+		zap.L().Info("ConfigureOAuth2Provider() OAuth2 provider exists, wiring plugin scripts")
+		wireProviderScripts(currentConfig, claimsScriptID, dcrScriptId, accessTokenModScriptId)
 		return
 	}
 
 	zap.S().Infof("Pushing the following config %+v", oauth2Provider)
 
 	oauth2Provider.PluginsConfig.OidcClaimsScript = claimsScriptID
-	zap.S().Infow("UpdateOAuth2Provider() Updating OAuth2 provider", "claimScriptId", claimsScriptID)
-	path := "/am/json/" + common.Config.Identity.AmRealm + "/realm-config/services/oauth-oidc"
-	zap.S().Info("UpdateOAuth2Provider() Updating OAuth2Provider via the following path {}", path)
+	zap.S().Infow("ConfigureOAuth2Provider() Configuring OAuth2 provider", "claimScriptId", claimsScriptID)
+	oauth2Provider.ClientDynamicRegistrationConfig.DynamicClientRegistrationScript = dcrScriptId
+	zap.S().Infow("ConfigureOAuth2Provider() Configuring OAuth2 provider", "dcrScriptId", dcrScriptId)
+	oauth2Provider.PluginsConfig.AccessTokenModificationScript = accessTokenModScriptId
+	zap.S().Infow("ConfigureOAuth2Provider() Configuring OAuth2 provider", "accessTokenModScriptId", accessTokenModScriptId)
+	zap.S().Info("ConfigureOAuth2Provider() Configuring the OAuth2Provider via the following path {}", path)
 	s := httprest.Client.Put(path, oauth2Provider, map[string]string{
 		"Accept":           "*/*",
 		"Content-Type":     "application/json",
@@ -299,27 +323,32 @@ func UpdateOBOAuth2Provider(claimsScriptID string) {
 		"X-Requested-With": "ForgeRock Identity Cloud Postman Collection",
 	})
 
-	zap.S().Infow("UpdateOAuth2Provider() OAuth2 provider", "statusCode", s)
+	zap.S().Infow("ConfigureOAuth2Provider() OAuth2 provider", "statusCode", s)
 }
 
-func UpdateCoreOAuth2Provider(claimsScriptID string) {
-	zap.S().Info("UpdateOAuth2Provider() Creating OAuth2Provider service in the " + common.Config.Identity.AmRealm + " realm")
+func ConfigureCoreOAuth2Provider(claimsScriptID string, dcrScriptId string, accessTokenModScriptId string) {
+	zap.S().Info("ConfigureOAuth2Provider() Configuring the OAuth2Provider service in the " + common.Config.Identity.AmRealm + " realm")
 	oauth2Provider := &types.CoreOAuth2Provider{}
 	if err := common.Unmarshal(common.Config.Environment.Paths.ConfigSecureBanking+"oauth2provider-core-update.json", &common.Config, oauth2Provider); err != nil {
 		panic(err)
 	}
 
-	if oauth2ProviderExists(oauth2Provider.Type.ID) {
-		zap.L().Info("UpdateOAuth2Provider() OAuth2 provider exists")
+	path := "/am/json/" + common.Config.Identity.AmRealm + "/realm-config/services/oauth-oidc"
+	if currentConfig := readOAuth2Provider(path); currentConfig != nil {
+		zap.L().Info("ConfigureOAuth2Provider() OAuth2 provider exists, wiring plugin scripts")
+		wireProviderScripts(currentConfig, claimsScriptID, dcrScriptId, accessTokenModScriptId)
 		return
 	}
 
 	zap.S().Infof("Pushing the following config %+v", oauth2Provider)
 
 	oauth2Provider.PluginsConfig.OidcClaimsScript = claimsScriptID
-	zap.S().Infow("UpdateOAuth2Provider() Updating OAuth2 provider", "claimScriptId", claimsScriptID)
-	path := "/am/json/" + common.Config.Identity.AmRealm + "/realm-config/services/oauth-oidc"
-	zap.S().Info("UpdateOAuth2Provider() Updating OAuth2Provider via the following path {}", path)
+	zap.S().Infow("ConfigureOAuth2Provider() Configuring OAuth2 provider", "claimScriptId", claimsScriptID)
+	oauth2Provider.ClientDynamicRegistrationConfig.DynamicClientRegistrationScript = dcrScriptId
+	zap.S().Infow("ConfigureOAuth2Provider() Configuring OAuth2 provider", "dcrScriptId", dcrScriptId)
+	oauth2Provider.PluginsConfig.AccessTokenModificationScript = accessTokenModScriptId
+	zap.S().Infow("ConfigureOAuth2Provider() Configuring OAuth2 provider", "accessTokenModScriptId", accessTokenModScriptId)
+	zap.S().Info("ConfigureOAuth2Provider() Configuring the OAuth2Provider via the following path {}", path)
 	s := httprest.Client.Put(path, oauth2Provider, map[string]string{
 		"Accept":           "*/*",
 		"Content-Type":     "application/json",
@@ -327,25 +356,68 @@ func UpdateCoreOAuth2Provider(claimsScriptID string) {
 		"X-Requested-With": "ForgeRock Identity Cloud Postman Collection",
 	})
 
-	zap.S().Infow("UpdateOAuth2Provider() OAuth2 provider", "statusCode", s)
+	zap.S().Infow("ConfigureOAuth2Provider() OAuth2 provider", "statusCode", s)
 }
 
-func oauth2ProviderExists(id string) bool {
-	path := "/am/json/realms/root/realms/" + common.Config.Identity.AmRealm + "/realm-config/services?_queryFilter=true"
-	r := &types.AmResult{}
-	b, _ := httprest.Client.Get(path, map[string]string{
-		"Accept":             "application/json",
-		"X-Requested-With":   "ForgeRock Identity Cloud Postman Collection",
-		"Accept-Api-Version": "protocol=1.0,resource=1.0",
+// readOAuth2Provider reads the OAuth2 provider configuration, returning nil when the
+// service does not exist. GetRS is used instead of Get because the latter treats a
+// 404 as fatal in strict mode.
+func readOAuth2Provider(path string) map[string]interface{} {
+	b, status := httprest.Client.GetRS("https://"+common.Config.Hosts.IdentityPlatformFQDN+path, map[string]string{
+		"Accept":           "application/json",
+		"X-Requested-With": "ForgeRock Identity Cloud Postman Collection",
 	})
-
-	if err := json.Unmarshal(b, r); err != nil {
-		panic(err)
+	if status == 404 {
+		return nil
+	}
+	if status != 200 {
+		zap.S().Fatalw("readOAuth2Provider() Unexpected status reading the OAuth2 provider", "httpStatus", status)
 	}
 
-	return common.Find(id, r, func(r *types.Result) string {
-		return r.ID
+	provider := map[string]interface{}{}
+	if err := json.Unmarshal(b, &provider); err != nil {
+		panic(err)
+	}
+	return provider
+}
+
+// wireProviderScripts wires the OIDC claims, dynamic client registration and access
+// token modification plugin scripts into the existing OAuth2 provider. The provider
+// config is updated in place — only the three script references change — and PUT
+// back, leaving every other provider setting untouched. The services endpoint does
+// not support PATCH.
+func wireProviderScripts(provider map[string]interface{}, claimsScriptID string, dcrScriptId string, accessTokenModScriptId string) {
+	delete(provider, "_id")
+	delete(provider, "_rev")
+
+	plugins, ok := provider["pluginsConfig"].(map[string]interface{})
+	if !ok {
+		plugins = map[string]interface{}{}
+		provider["pluginsConfig"] = plugins
+	}
+	plugins["oidcClaimsScript"] = claimsScriptID
+	plugins["accessTokenModificationScript"] = accessTokenModScriptId
+
+	registration, ok := provider["clientDynamicRegistrationConfig"].(map[string]interface{})
+	if !ok {
+		registration = map[string]interface{}{}
+		provider["clientDynamicRegistrationConfig"] = registration
+	}
+	registration["dynamicClientRegistrationScript"] = dcrScriptId
+
+	zap.S().Infow("wireProviderScripts() Wiring OAuth2 provider plugin scripts",
+		"claimScriptId", claimsScriptID,
+		"dcrScriptId", dcrScriptId,
+		"accessTokenModScriptId", accessTokenModScriptId)
+	path := "/am/json/" + common.Config.Identity.AmRealm + "/realm-config/services/oauth-oidc"
+	status := httprest.Client.Put(path, provider, map[string]string{
+		"Accept":           "*/*",
+		"Content-Type":     "application/json",
+		"Connection":       "keep-alive",
+		"X-Requested-With": "ForgeRock Identity Cloud Postman Collection",
 	})
+
+	zap.S().Infow("wireProviderScripts() OAuth2 provider", "statusCode", status)
 }
 
 func CreateBaseURLSourceService(cookie *http.Cookie) {
